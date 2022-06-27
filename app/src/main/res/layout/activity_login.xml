@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/tvEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="35dp"
@@ -36,8 +36,8 @@
             android:layout_marginBottom="10dp"
             android:background="@color/translucent_color"
             android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
             android:paddingStart="10dp"
             android:textColor="@color/button_text"
             android:textColorHighlight="@color/white"
