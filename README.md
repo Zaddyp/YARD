@@ -29,15 +29,21 @@ YARD is a social media application used to foster relationship among Historicall
 **Required Must-have Stories**
 
 * Log in and Sign up - users can log in and sign up
+    * verifying emails
 * Bio - users can view their profiles
 * Home - user can see feeds 
-* Events - users can see whats happening like trends etc
-* Search - users can search for other users 
+    * user can post 
+* Compose
+    * users can post photos, texts and videos
+    * video uploading - size and storing in the database
 * Gestures - users can double tap to like 
 * Animation - animated logo
+* SDKs
+* Visual Polish from external libraries
 
 **Optional Nice-to-have Stories**
-
+* Events - users can see whats happening like trends etc 
+* Search - users can search for other users
 * Refresh to see new posts
 * post can show locations 
 * search with different flters like based on school, majors etc
@@ -88,6 +94,9 @@ YARD is a social media application used to foster relationship among Historicall
 
 ## Schema 
 [This section will be completed in Unit 9]
+
+![](https://i.imgur.com/QnmjMnm.jpg)
+
 ### Models
 [Add table of models]
 ### Networking
