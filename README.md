@@ -101,6 +101,18 @@ YARD is a social media application used to foster relationship among Historicall
 ### Models
 [Add table of models]
 ### Networking
+
+* Home Feed Screen
+   *(Read/GET) Query all posts where user is author
+* (Create/POST) Create a new like on a post
+
+* (Create/POST) Create a new comment on a post
+
+* Create Post Screen
+   * (Create/POST) Create a new post object
+* Profile Screen
+
+
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
