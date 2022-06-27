@@ -16,11 +16,12 @@ YARD is a social media application used to foster relationship among Historicall
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category:** - social media 
-- **Mobile:**
-- **Story:**
-- **Market:** - HBCUs 
-- **Habit:**
-- **Scope:** 
+- **Mobile:** - Mobile is view only and uses camera
+- **Story:** - Allows users to share their lives in pictures and enhance their content 
+- **Market:** - The targeted audience is anyone attending a HBCU.  
+- **Habit:** - Users can post throughout the day many times. Users can explore endless pictures in any category imaginable whenever they want. Very habbit forming!
+- **Scope:** - Starting out narrow focused to school by school based on Geography before expanding to every HBCU student across the country
+
 
 ## Product Spec
 
