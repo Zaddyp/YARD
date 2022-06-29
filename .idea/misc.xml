@@ -5,10 +5,12 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/button_background.xml" value="0.4155" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5265" />
+        <entry key="app/src/main/res/drawable/ic_log_out_sign_svgrepo_com.xml" value="0.472" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.475" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.30855018587360594" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/log_out.xml" value="0.7213541666666666" />
       </map>
     </option>
   </component>
