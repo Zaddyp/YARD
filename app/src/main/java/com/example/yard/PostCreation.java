@@ -11,6 +11,7 @@ public class PostCreation extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
 
     public String getKeyDescription() {
         return getString(KEY_DESCRIPTION);
@@ -26,8 +27,8 @@ public class PostCreation extends ParseObject {
         put(KEY_IMAGE, parseFile);
     }
 
-    public String getKeyUser() {
-        return getString(KEY_USER);
+    public ParseUser getKeyUser() {
+        return getParseUser(KEY_USER);
     }
     public void setKeyUser(ParseUser user){
         put(KEY_USER, user);
