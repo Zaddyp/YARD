@@ -13,7 +13,6 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 public class LoginActivity extends AppCompatActivity {
-
     TextView signUp;
     TextView logEmail;
     TextView password;
@@ -23,16 +22,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         if (ParseUser.getCurrentUser() != null){
             goMainActivity();
         }
-
         logEmail = findViewById(R.id.tvEmailAddress);
         password = findViewById(R.id.etPassword);
         signUp = findViewById(R.id.tvSign);
         logIn = findViewById(R.id.btnLogin);
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

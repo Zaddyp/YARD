@@ -14,12 +14,21 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SignupActivity extends AppCompatActivity {
     private Button signUp;
     private TextView email;
     private TextView password;
     private TextView username;
     private TextView title;
+    // HBCUs in Tennesse, Virginia, and Delaware
+    String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
+            , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,12 @@ public class SignupActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String usernameString = username.getText().toString();
                 String titLe = title.getText().toString();
+
+                String[] arrOfStr = emailAddress.split("@", 2);
+                if (!Arrays.asList(schools).contains(arrOfStr[1])){
+                    Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (emailAddress.isEmpty() || passwordString.isEmpty() || usernameString.isEmpty()){
                     Toast.makeText(SignupActivity.this, "No field can be left empty", Toast.LENGTH_SHORT).show();
                     return;
