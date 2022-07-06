@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.log_out, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -89,17 +91,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-//    private void queryPosts() {
-//        ParseQuery<PostCreation> query = ParseQuery.getQuery(PostCreation.class);
-//        query.include(PostCreation.KEY_USER);
-//        query.findInBackground(new FindCallback<PostCreation>() {
-//            @Override
-//            public void done(List<PostCreation> posts, ParseException e) {
-//                if (e != null){
-//                    Toast.makeText(MainActivity.this, "The list of posts is empty and the query isnt getting anything", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//        });
-//    }
 }

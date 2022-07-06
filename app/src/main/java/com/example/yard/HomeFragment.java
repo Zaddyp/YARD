@@ -1,5 +1,4 @@
 package com.example.yard;
-
 import android.support.v4.app.INotificationSideChannel;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,12 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
     public static final String TAG = "HomeFragment";
     private RecyclerView rvPosts;
     protected PostsAdapter adapter;
     protected  List<PostCreation> allPosts;
-
 
     public HomeFragment(){
 
@@ -46,7 +43,6 @@ public class HomeFragment extends Fragment {
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-
         queryPosts();
     }
 
@@ -59,8 +55,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void done(List<PostCreation> posts, ParseException e) {
                 if (e != null){
-//                    Toast.makeText(HomeFragment.this, "The list of posts is empty and the query isnt getting anything", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
                 allPosts.addAll(posts);

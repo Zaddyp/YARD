@@ -1,12 +1,18 @@
 package com.example.yard;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,17 +25,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.List;
+import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Post extends AppCompatActivity {
-
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
+    public static final int REQUEST_CODE = 100;
     public static final String TAG = "Post";
     private Button takePicture;
     private Button submit;
@@ -37,18 +48,31 @@ public class Post extends AppCompatActivity {
     private Button upload;
     private File photoFile;
     private ImageView image;
+    TextView location;
+    private String Country;
+    private String State;
+    FusedLocationProviderClient fusedLocationProviderClient;
     private String photoFileName = "photo.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-
         takePicture = findViewById(R.id.btnTakePicture);
         submit = findViewById(R.id.btnSubmit);
         upload = findViewById(R.id.btnUploadPicture);
         etdescription = findViewById(R.id.tvDescription);
         image = findViewById(R.id.ivImage);
+//        location = findViewById(R.id.tvLocation);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+//        location.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getLastLocation();
+//            }
+//        });
+
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,13 +88,27 @@ public class Post extends AppCompatActivity {
                     Toast.makeText(Post.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if (image.getDrawable() == null){
-//                    Toast.makeText(Post.this, "No picture Uploaded", Toast.LENGTH_SHORT).show();
-//                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
             }
         });
+    }
+
+    private void getLastLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null){
+                        Geocoder geocoder = new Geocoder(Post.this, Locale.getDefault());
+//                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+//                        location.setText()
+                    }
+                }
+            });
+        } else {
+
+        }
     }
 
     private void launchcamera() {
@@ -82,7 +120,6 @@ public class Post extends AppCompatActivity {
         // See https://guides.codepath.com/android/S haring-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(Post.this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
         // If you call star tActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(Post.this.getPackageManager()) != null) {
@@ -112,16 +149,13 @@ public class Post extends AppCompatActivity {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
         File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
             Log.d(TAG, "failed to create directory");
         }
         // Return the file target for the photo based on filename
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
-
     }
-
 
     private void  savePost(String description, ParseUser currentUser, File photoFile) {
         PostCreation postCreation = new PostCreation();

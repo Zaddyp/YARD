@@ -1,4 +1,5 @@
 package com.example.yard;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yard.R;
@@ -45,21 +47,38 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loginUser(String stringEmail, String stringPassword) {
         ParseUser.logInInBackground(stringEmail, stringPassword, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null){
-                    Toast.makeText(LoginActivity.this, "Incorrect Email Address or password", Toast.LENGTH_SHORT).show();
+                    showAlert("Login failed", e.getMessage(), true);
                     return;
                 }
-                goMainActivity();
+                else{
+                    showAlert("Login Successful", "Your email is verified successfully", false);
+                }
             }
         });
     }
+
     private void goMainActivity() {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    private void showAlert(String title, String message, Boolean error) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title).setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                if(!error){
+                    goMainActivity();
+                }
+            }
+        }).show();
     }
 }

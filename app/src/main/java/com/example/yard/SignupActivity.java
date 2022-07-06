@@ -1,5 +1,8 @@
 package com.example.yard;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,14 +31,11 @@ public class SignupActivity extends AppCompatActivity {
     String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
             , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu"};
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ParseInstallation.getCurrentInstallation().saveInBackground();
-
         signUp = findViewById(R.id.btnSigningup);
         email = findViewById(R.id.editTextEmailAddress);
         password = findViewById(R.id.tvPassword);
@@ -48,7 +48,7 @@ public class SignupActivity extends AppCompatActivity {
                 String passwordString = password.getText().toString();
                 String usernameString = username.getText().toString();
                 String titLe = title.getText().toString();
-
+//                convert the email to list before the @ and after and check if the end is in part of the schools listed
                 String[] arrOfStr = emailAddress.split("@", 2);
                 if (!Arrays.asList(schools).contains(arrOfStr[1])){
                     Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
@@ -67,14 +67,27 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
-                            // take the person to the log in page if the signup is successful and info has been stored in the back4app
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(SignupActivity.this, "success!", Toast.LENGTH_LONG).show();
+                            ParseUser.logOut();
+                            showAlert("Sign Up successful", "Please verify your School email address and login");
+                        }
+                        else{
+                            showAlert("Account could not be created", e.getMessage());
                         }
                     }
                 });
             }
         });
+    }
+
+    private void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title).setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }).show();
     }
 }

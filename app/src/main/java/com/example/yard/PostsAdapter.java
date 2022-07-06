@@ -6,17 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
-
     private Context context;
     private List<PostCreation> posts;
 
@@ -44,22 +45,29 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
         private TextView tvUsername;
         private ImageView ivUserImage;
         private TextView tvCaption;
-
+//        private TextView tvLocation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivUserImage = itemView.findViewById(R.id.ivUserImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
+//            tvLocation = itemView.findViewById(R.id.tvLocation);
         }
 
         public void bind(PostCreation post) {
             tvCaption.setText(post.getKeyDescription());
-            tvUsername.setText(post.getKeyUser().getUsername());
+            if (post.getKeyUser() == null){
+                Toast.makeText(context, "User doesn't exist", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+                tvUsername.setText(post.getKeyUser().getUsername());
+            }
+//            tvLocation.setText(post.getKeyLocation());
             ParseFile image = post.getImage();
             if (image != null){
                 Glide.with(context).load(image.getUrl()).into(ivUserImage) ;

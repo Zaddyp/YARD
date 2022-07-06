@@ -9,18 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class BioTagFragment extends Fragment {
-
-
-
     public BioTagFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
