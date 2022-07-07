@@ -9,14 +9,17 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.yard.Adapter.SectionPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.parse.ParseUser;
 
 public class BioFragment extends Fragment {
     View myFragment;
     ViewPager viewPager;
     TabLayout tabLayout;
+    TextView profileName;
 
     public BioFragment() {
         // Required empty public constructor
@@ -40,6 +43,9 @@ public class BioFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        profileName = getActivity().findViewById(R.id.tvProfileName);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        profileName.setText(currentUser.getUsername());
         setUpViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

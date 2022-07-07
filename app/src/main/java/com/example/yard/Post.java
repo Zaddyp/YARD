@@ -1,7 +1,9 @@
 package com.example.yard;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -34,6 +36,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,9 +51,9 @@ public class Post extends AppCompatActivity {
     private Button upload;
     private File photoFile;
     private ImageView image;
-    TextView location;
-    private String Country;
-    private String State;
+    Button getLocation;
+    TextView userAddress;
+    Button removeLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private String photoFileName = "photo.jpg";
 
@@ -63,16 +66,18 @@ public class Post extends AppCompatActivity {
         upload = findViewById(R.id.btnUploadPicture);
         etdescription = findViewById(R.id.tvDescription);
         image = findViewById(R.id.ivImage);
-//        location = findViewById(R.id.tvLocation);
+        userAddress = findViewById(R.id.tvLocationAddress);
+        userAddress.setText("");
+        getLocation = findViewById(R.id.btnGetLocation);
+        removeLocation = findViewById(R.id.btnRemoveLocation);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-//        location.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getLastLocation();
-//            }
-//        });
-
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLastLocation();
+            }
+        });
         takePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,13 +88,23 @@ public class Post extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String description = etdescription.getText().toString();
+                String userLocation = userAddress.getText().toString();
+
 
                 if (description.isEmpty()){
                     Toast.makeText(Post.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
+                savePost(description, userLocation, currentUser, photoFile);
+            }
+        });
+        removeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userLocation = userAddress.getText().toString();
+                userAddress.setText("");
+
             }
         });
     }
@@ -101,14 +116,40 @@ public class Post extends AppCompatActivity {
                 public void onSuccess(Location location) {
                     if (location != null){
                         Geocoder geocoder = new Geocoder(Post.this, Locale.getDefault());
-//                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//                        location.setText()
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            userAddress.setText("" + addresses.get(0).getLocality() + ", " +addresses.get(0).getCountryName());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        askPermission();
                     }
                 }
             });
         } else {
 
         }
+    }
+
+    private void askPermission() {
+        ActivityCompat.requestPermissions(Post.this, new String[]
+                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE){
+            if(grantResults.length> 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                getLastLocation();
+            }
+            else{
+                Toast.makeText(this, "Required Permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void launchcamera() {
@@ -157,9 +198,10 @@ public class Post extends AppCompatActivity {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
-    private void  savePost(String description, ParseUser currentUser, File photoFile) {
+    private void  savePost(String description, String userLocation, ParseUser currentUser, File photoFile) {
         PostCreation postCreation = new PostCreation();
         postCreation.setKeyDescription(description);
+        postCreation.setKeyLocation(userLocation);
         if (image.getDrawable()  != null) {
             postCreation.setImage(new ParseFile(photoFile));
         }

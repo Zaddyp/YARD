@@ -29,7 +29,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextView title;
     // HBCUs in Tennesse, Virginia, and Delaware
     String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
-            , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu"};
+            , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu", "fb.com"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

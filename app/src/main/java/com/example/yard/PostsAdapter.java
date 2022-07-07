@@ -48,14 +48,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivUserImage;
         private TextView tvCaption;
-//        private TextView tvLocation;
+        private TextView tvLocation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivUserImage = itemView.findViewById(R.id.ivUserImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
-//            tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvLocation = itemView.findViewById(R.id.tvLocation);
         }
 
         public void bind(PostCreation post) {
@@ -67,13 +67,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             else {
                 tvUsername.setText(post.getKeyUser().getUsername());
             }
-//            tvLocation.setText(post.getKeyLocation());
+            tvLocation.setText(post.getKeyLocation());
             ParseFile image = post.getImage();
             if (image != null){
                 Glide.with(context).load(image.getUrl()).into(ivUserImage) ;
             }
             else{
                 ivUserImage.setVisibility(View.GONE);
+            }
+            if (tvLocation.getText().toString() == ""){
+                tvLocation.setVisibility(View.GONE);
             }
         }
     }
