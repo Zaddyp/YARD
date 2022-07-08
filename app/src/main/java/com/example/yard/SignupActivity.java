@@ -15,11 +15,24 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SignupActivity extends AppCompatActivity {
     private Button signUp;
     private TextView email;
     private TextView password;
     private TextView username;
+<<<<<<< HEAD
+=======
+    private TextView title;
+    // HBCUs in Tennesse, Virginia, and Delaware
+    String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
+            , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu"};
+
+
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +51,21 @@ public class SignupActivity extends AppCompatActivity {
                 String emailAddress = email.getText().toString();
                 String passwordString = password.getText().toString();
                 String usernameString = username.getText().toString();
+<<<<<<< HEAD
 
+=======
+                String titLe = title.getText().toString();
+
+                String[] arrOfStr = emailAddress.split("@", 2);
+                if (!Arrays.asList(schools).contains(arrOfStr[1])){
+                    Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (emailAddress.isEmpty() || passwordString.isEmpty() || usernameString.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "No field can be left empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
                 // upload information to the back4app
                 ParseUser user = new ParseUser();
                 user.setUsername(usernameString);
