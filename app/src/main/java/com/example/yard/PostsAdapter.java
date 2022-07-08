@@ -6,18 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
+=======
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+<<<<<<< HEAD
 import com.parse.ParseUser;
+=======
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
 
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
     private Context context;
     private List<PostCreation> posts;
 
@@ -45,21 +55,33 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
+<<<<<<< HEAD
         private TextView tvUsername;
         private ImageView ivUserImage;
         private TextView tvCaption;
         private TextView tvLocation;
+=======
+
+        private TextView tvUsername;
+        private ImageView ivUserImage;
+        private TextView tvCaption;
+
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivUserImage = itemView.findViewById(R.id.ivUserImage);
             tvCaption = itemView.findViewById(R.id.tvCaption);
+<<<<<<< HEAD
             tvLocation = itemView.findViewById(R.id.tvLocation);
+=======
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
         }
 
         public void bind(PostCreation post) {
             tvCaption.setText(post.getKeyDescription());
+<<<<<<< HEAD
             if (post.getKeyUser() == null){
                 Toast.makeText(context, "User doesn't exist", Toast.LENGTH_SHORT).show();
                 return;
@@ -68,6 +90,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 tvUsername.setText(post.getKeyUser().getUsername());
             }
             tvLocation.setText(post.getKeyLocation());
+=======
+            tvUsername.setText(post.getKeyUser().getUsername());
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
             ParseFile image = post.getImage();
             if (image != null){
                 Glide.with(context).load(image.getUrl()).into(ivUserImage) ;
@@ -75,9 +100,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             else{
                 ivUserImage.setVisibility(View.GONE);
             }
+<<<<<<< HEAD
             if (tvLocation.getText().toString() == ""){
                 tvLocation.setVisibility(View.GONE);
             }
+=======
+>>>>>>> eb5cd50 (fragments, posts, email verification for only HBCUs in Tennessee, Delaware, and Virginia)
         }
     }
 
