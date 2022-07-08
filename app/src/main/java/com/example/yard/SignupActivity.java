@@ -1,6 +1,8 @@
 package com.example.yard;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,47 +17,84 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SignupActivity extends AppCompatActivity {
     private Button signUp;
     private TextView email;
     private TextView password;
     private TextView username;
+    private TextView title;
+    private TextView school;
+    // HBCUs in Tennesse, Virginia, and Delaware
+    String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
+            , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu", "fb.com"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ParseInstallation.getCurrentInstallation().saveInBackground();
-
         signUp = findViewById(R.id.btnSigningup);
         email = findViewById(R.id.editTextEmailAddress);
         password = findViewById(R.id.tvPassword);
+        school = findViewById(R.id.tvSchool);
         username = findViewById(R.id.tvName);
-
+        title = findViewById(R.id.tvTitle);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String emailAddress = email.getText().toString();
                 String passwordString = password.getText().toString();
                 String usernameString = username.getText().toString();
+                String userTitle = title.getText().toString();
+                String userSchool = school.getText().toString();
+//                convert the email to list before the @ and after and check if the end is in part of the schools listed
+                String[] arrOfStr = emailAddress.split("@", 2);
 
+                if (emailAddress.isEmpty() || passwordString.isEmpty() || usernameString.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "No field can be left empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (emailAddress.indexOf("@") != -1 && !Arrays.asList(schools).contains(arrOfStr[1])){
+                    Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // upload information to the back4app
                 ParseUser user = new ParseUser();
                 user.setUsername(usernameString);
                 user.setPassword(passwordString);
                 user.setEmail(emailAddress);
+                user.put("school", userSchool);
+                user.put("title", userTitle);
+
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
-                            // take the person to the log in page if the signup is successful and info has been stored in the back4app
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(SignupActivity.this, "success!", Toast.LENGTH_LONG).show();
+                            ParseUser.logOut();
+                            showAlert("Sign Up successful", "Please verify your School email address and login");
+                        }
+                        else{
+                            showAlert("Account could not be created", e.getMessage());
                         }
                     }
                 });
             }
         });
+    }
+
+    private void showAlert(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title).setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }).show();
     }
 }

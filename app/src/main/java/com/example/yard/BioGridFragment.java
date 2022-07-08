@@ -23,14 +23,13 @@ import java.util.List;
 
 public class BioGridFragment extends HomeFragment {
     protected RecyclerView rvPosts;
-
     @Override
     protected void queryPosts() {
         ParseQuery<PostCreation> query = ParseQuery.getQuery(PostCreation.class);
         query.include(PostCreation.KEY_USER);
         query.whereEqualTo(PostCreation.KEY_USER, ParseUser.getCurrentUser());
         query.setLimit(20);
-        query.addDescendingOrder(PostCreation.KEY_CREATED_AT );
+        query.addDescendingOrder(PostCreation.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<PostCreation>() {
             @Override
             public void done(List<PostCreation> posts, ParseException e) {
@@ -45,13 +44,6 @@ public class BioGridFragment extends HomeFragment {
         });
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_bio_grid, container, false);
-//    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,8 +51,6 @@ public class BioGridFragment extends HomeFragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
-//        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-
         queryPosts();
     }
 }

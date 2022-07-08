@@ -1,5 +1,4 @@
 package com.example.yard;
-
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -11,6 +10,9 @@ public class PostCreation extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
+    public static final String KEY_LOCATION = "location";
+    public static final String KEY_SCHOOL = "school";
 
     public String getKeyDescription() {
         return getString(KEY_DESCRIPTION);
@@ -19,6 +21,12 @@ public class PostCreation extends ParseObject {
         put(KEY_DESCRIPTION, description);
     }
 
+    public String getKeyLocation() {return getString(KEY_LOCATION);}
+    public void setKeyLocation(String location) {put(KEY_LOCATION, location);}
+
+    public String getKeySchool() {return getString(KEY_SCHOOL);}
+    public void setKeySchool(String school) {put(KEY_SCHOOL, school);}
+
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
     }
@@ -26,8 +34,8 @@ public class PostCreation extends ParseObject {
         put(KEY_IMAGE, parseFile);
     }
 
-    public String getKeyUser() {
-        return getString(KEY_USER);
+    public ParseUser getKeyUser() {
+        return getParseUser(KEY_USER);
     }
     public void setKeyUser(ParseUser user){
         put(KEY_USER, user);
