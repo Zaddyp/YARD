@@ -29,7 +29,7 @@ public class BioGridFragment extends HomeFragment {
         query.include(PostCreation.KEY_USER);
         query.whereEqualTo(PostCreation.KEY_USER, ParseUser.getCurrentUser());
         query.setLimit(20);
-        query.addDescendingOrder(PostCreation.KEY_CREATED_AT );
+        query.addDescendingOrder(PostCreation.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<PostCreation>() {
             @Override
             public void done(List<PostCreation> posts, ParseException e) {

@@ -27,6 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextView password;
     private TextView username;
     private TextView title;
+    private TextView school;
     // HBCUs in Tennesse, Virginia, and Delaware
     String[] schools = {"my.fisk.edu", "lanecollege.edu", "my.tnstate.edu", "abcnash.edu", "KnoxvilleCollege.edu"
             , "loc.edu", "mmc.edu","hamptonu.edu", "nsu.edu", "desu.edu", "fb.com"};
@@ -39,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         signUp = findViewById(R.id.btnSigningup);
         email = findViewById(R.id.editTextEmailAddress);
         password = findViewById(R.id.tvPassword);
+        school = findViewById(R.id.tvSchool);
         username = findViewById(R.id.tvName);
         title = findViewById(R.id.tvTitle);
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -47,15 +49,17 @@ public class SignupActivity extends AppCompatActivity {
                 String emailAddress = email.getText().toString();
                 String passwordString = password.getText().toString();
                 String usernameString = username.getText().toString();
-                String titLe = title.getText().toString();
+                String userTitle = title.getText().toString();
+                String userSchool = school.getText().toString();
 //                convert the email to list before the @ and after and check if the end is in part of the schools listed
                 String[] arrOfStr = emailAddress.split("@", 2);
-                if (!Arrays.asList(schools).contains(arrOfStr[1])){
-                    Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 if (emailAddress.isEmpty() || passwordString.isEmpty() || usernameString.isEmpty()){
                     Toast.makeText(SignupActivity.this, "No field can be left empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (emailAddress.indexOf("@") != -1 && !Arrays.asList(schools).contains(arrOfStr[1])){
+                    Toast.makeText(SignupActivity.this, "Your HBCU has to be in Tennesse, Virginia or Delaware", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // upload information to the back4app
@@ -63,6 +67,9 @@ public class SignupActivity extends AppCompatActivity {
                 user.setUsername(usernameString);
                 user.setPassword(passwordString);
                 user.setEmail(emailAddress);
+                user.put("school", userSchool);
+                user.put("title", userTitle);
+
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {

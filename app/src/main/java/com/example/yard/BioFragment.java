@@ -20,6 +20,8 @@ public class BioFragment extends Fragment {
     ViewPager viewPager;
     TabLayout tabLayout;
     TextView profileName;
+    TextView userSchool;
+    TextView userTitle;
 
     public BioFragment() {
         // Required empty public constructor
@@ -44,8 +46,12 @@ public class BioFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         profileName = getActivity().findViewById(R.id.tvProfileName);
+        userSchool = getActivity().findViewById(R.id.tvProfileschool);
+        userTitle = getActivity().findViewById(R.id.tvUserTitle);
         ParseUser currentUser = ParseUser.getCurrentUser();
         profileName.setText(currentUser.getUsername());
+        userSchool.setText(currentUser.getString("school"));
+        userTitle.setText(currentUser.getString("title"));
         setUpViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

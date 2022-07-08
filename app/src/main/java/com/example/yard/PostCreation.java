@@ -12,6 +12,7 @@ public class PostCreation extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_AT = "createdAt";
     public static final String KEY_LOCATION = "location";
+    public static final String KEY_SCHOOL = "school";
 
     public String getKeyDescription() {
         return getString(KEY_DESCRIPTION);
@@ -22,6 +23,9 @@ public class PostCreation extends ParseObject {
 
     public String getKeyLocation() {return getString(KEY_LOCATION);}
     public void setKeyLocation(String location) {put(KEY_LOCATION, location);}
+
+    public String getKeySchool() {return getString(KEY_SCHOOL);}
+    public void setKeySchool(String school) {put(KEY_SCHOOL, school);}
 
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);

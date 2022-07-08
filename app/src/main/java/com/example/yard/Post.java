@@ -129,8 +129,6 @@ public class Post extends AppCompatActivity {
                     }
                 }
             });
-        } else {
-
         }
     }
 
@@ -202,7 +200,7 @@ public class Post extends AppCompatActivity {
         PostCreation postCreation = new PostCreation();
         postCreation.setKeyDescription(description);
         postCreation.setKeyLocation(userLocation);
-        if (image.getDrawable()  != null) {
+        if (image.getDrawable() != null) {
             postCreation.setImage(new ParseFile(photoFile));
         }
         postCreation.setKeyUser(currentUser);
