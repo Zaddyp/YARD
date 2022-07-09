@@ -48,7 +48,7 @@ public class PostActivity extends AppCompatActivity {
   private Button btnGetLocation;
   private TextView tvUserAddress;
   private Button btnRemoveLocation;
-  private TextView etdescription;
+  private TextView etDescription;
   private File photoFile;
   private ImageView ivImage;
 
@@ -59,7 +59,7 @@ public class PostActivity extends AppCompatActivity {
     Button takePicture = findViewById(R.id.btnTakePicture);
     Button submit = findViewById(R.id.btnSubmit);
     Button upload = findViewById(R.id.btnUploadPicture);
-    etdescription = findViewById(R.id.tvDescription);
+    etDescription = findViewById(R.id.tvDescription);
     ivImage = findViewById(R.id.ivImage);
     tvUserAddress = findViewById(R.id.tvLocationAddress);
     tvUserAddress.setText("");
@@ -70,7 +70,7 @@ public class PostActivity extends AppCompatActivity {
     takePicture.setOnClickListener(view -> launchcamera());
     submit.setOnClickListener(
         view -> {
-          String description = etdescription.getText().toString();
+          String description = etDescription.getText().toString();
           String userLocation = tvUserAddress.getText().toString();
 
           if (description.isEmpty()) {
@@ -183,7 +183,7 @@ public class PostActivity extends AppCompatActivity {
             Log.e("error", "error while saving:" + e);
             Toast.makeText(PostActivity.this, "error while saving", Toast.LENGTH_SHORT).show();
           }
-          etdescription.setText("");
+          etDescription.setText("");
           ivImage.setImageResource(0);
         });
   }
