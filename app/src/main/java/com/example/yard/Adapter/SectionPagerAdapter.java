@@ -9,34 +9,35 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragmentList = new ArrayList<>();
-    private List<String> titleList = new ArrayList<>();
+  private final List<Fragment> fragmentList = new ArrayList<>();
+  private final List<String> titleList = new ArrayList<>();
 
-    public SectionPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
-    }
+  public SectionPagerAdapter(@NonNull FragmentManager fm) {
+    super(fm);
+  }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return fragmentList.get(position);
-    }
+  @NonNull
+  @Override
+  public Fragment getItem(int position) {
+    return fragmentList.get(position);
+  }
 
-    @Override
-    public int getCount() {
-        return fragmentList.size() ;
-    }
+  @Override
+  public int getCount() {
+    return fragmentList.size();
+  }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titleList.get(position);
-    }
+  @Nullable
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return titleList.get(position);
+  }
 
-    public void addFragment(Fragment fragment, String title){
-        fragmentList.add(fragment);
-        titleList.add(title);
-    }
+  public void addFragment(Fragment fragment, String title) {
+    fragmentList.add(fragment);
+    titleList.add(title);
+  }
 }

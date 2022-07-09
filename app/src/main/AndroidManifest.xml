@@ -15,8 +15,7 @@
     </queries>
 
     <application
-        android:name=".ParseApplication"
-        android:usesCleartextTraffic="true"
+        android:name=".ParseApplication.ParseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,6 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YARD"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -37,16 +37,16 @@
         </provider>
 
         <activity
-            android:name=".Post"
+            android:name=".Activities.PostActivity"
             android:exported="false" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".Activities.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
