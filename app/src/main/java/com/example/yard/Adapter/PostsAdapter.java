@@ -1,5 +1,4 @@
 package com.example.yard.Adapter;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +42,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
   public int getItemCount() {
     return posts.size();
   }
-
   class ViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvUsername;
     private final ImageView ivUserImage;

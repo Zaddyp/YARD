@@ -1,5 +1,4 @@
 package com.example.yard.ParseApplication;
-
 import android.app.Application;
 
 import com.example.yard.Adapter.PostCreation;

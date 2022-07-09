@@ -1,5 +1,4 @@
 package com.example.yard.Activities;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -7,14 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +29,8 @@ import com.example.yard.Adapter.PostCreation;
 import com.example.yard.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,15 +41,15 @@ import java.util.Locale;
 public class PostActivity extends AppCompatActivity {
   public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
   public static final int REQUEST_CODE = 100;
-  public static final String TAG = "Post";
+  public static final String TAG = "PostActivity";
   private static final String PHOTO_FILE_NAME = "photo.jpg";
-  Button getLocation;
-  TextView userAddress;
-  Button removeLocation;
   FusedLocationProviderClient fusedLocationProviderClient;
+  private Button btnGetLocation;
+  private TextView tvUserAddress;
+  private Button btnRemoveLocation;
   private TextView etdescription;
   private File photoFile;
-  private ImageView image;
+  private ImageView ivImage;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,35 +59,32 @@ public class PostActivity extends AppCompatActivity {
     Button submit = findViewById(R.id.btnSubmit);
     Button upload = findViewById(R.id.btnUploadPicture);
     etdescription = findViewById(R.id.tvDescription);
-    image = findViewById(R.id.ivImage);
-    userAddress = findViewById(R.id.tvLocationAddress);
-    userAddress.setText("");
-    getLocation = findViewById(R.id.btnGetLocation);
-    removeLocation = findViewById(R.id.btnRemoveLocation);
+    ivImage = findViewById(R.id.ivImage);
+    tvUserAddress = findViewById(R.id.tvLocationAddress);
+    tvUserAddress.setText("");
+    btnGetLocation = findViewById(R.id.btnGetLocation);
+    btnRemoveLocation = findViewById(R.id.btnRemoveLocation);
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-    getLocation.setOnClickListener(
-            view -> getLastLocation());
-    takePicture.setOnClickListener(
-            view -> launchcamera());
+    btnGetLocation.setOnClickListener(view -> getLastLocation());
+    takePicture.setOnClickListener(view -> launchcamera());
     submit.setOnClickListener(
-            view -> {
-              String description = etdescription.getText().toString();
-              String userLocation = userAddress.getText().toString();
+        view -> {
+          String description = etdescription.getText().toString();
+          String userLocation = tvUserAddress.getText().toString();
 
-              if (description.isEmpty()) {
-                Toast.makeText(PostActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT)
-                    .show();
-                return;
-              }
-              ParseUser currentUser = ParseUser.getCurrentUser();
-              savePost(description, userLocation, currentUser, photoFile);
-            });
-    removeLocation.setOnClickListener(
-            view -> {
-              String userLocation = userAddress.getText().toString();
-              userAddress.setText("");
-            });
+          if (description.isEmpty()) {
+            Toast.makeText(PostActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT)
+                .show();
+            return;
+          }
+          ParseUser currentUser = ParseUser.getCurrentUser();
+          savePost(description, userLocation, currentUser, photoFile);
+        });
+    btnRemoveLocation.setOnClickListener(
+        view -> {
+          String userLocation = tvUserAddress.getText().toString();
+          tvUserAddress.setText("");
+        });
   }
 
   private void getLastLocation() {
@@ -102,27 +93,27 @@ public class PostActivity extends AppCompatActivity {
       fusedLocationProviderClient
           .getLastLocation()
           .addOnSuccessListener(
-                  location -> {
-                    if (location != null) {
-                      Geocoder geocoder = new Geocoder(PostActivity.this, Locale.getDefault());
-                      List<Address> addresses;
-                      try {
-                        addresses =
-                            geocoder.getFromLocation(
-                                location.getLatitude(), location.getLongitude(), 1);
-                        userAddress.setText(
-                            ""
-                                + addresses.get(0).getLocality()
-                                + ", "
-                                + addresses.get(0).getCountryName());
-                      } catch (IOException e) {
-                        e.printStackTrace();
-                      }
+              location -> {
+                if (location != null) {
+                  Geocoder geocoder = new Geocoder(PostActivity.this, Locale.getDefault());
+                  List<Address> addresses;
+                  try {
+                    addresses =
+                        geocoder.getFromLocation(
+                            location.getLatitude(), location.getLongitude(), 1);
+                    tvUserAddress.setText(
+                        ""
+                            + addresses.get(0).getLocality()
+                            + ", "
+                            + addresses.get(0).getCountryName());
+                  } catch (IOException e) {
+                    e.printStackTrace();
+                  }
 
-                    } else {
-                      askPermission();
-                    }
-                  });
+                } else {
+                  askPermission();
+                }
+              });
     }
   }
 
@@ -144,7 +135,6 @@ public class PostActivity extends AppCompatActivity {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
-  @SuppressWarnings("deprecation")
   private void launchcamera() {
     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
@@ -162,7 +152,7 @@ public class PostActivity extends AppCompatActivity {
     if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
       if (resultCode == RESULT_OK) {
         Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-        image.setImageBitmap(takenImage);
+        ivImage.setImageBitmap(takenImage);
       } else { // Result was a failure
         Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
       }
@@ -182,18 +172,18 @@ public class PostActivity extends AppCompatActivity {
     PostCreation postCreation = new PostCreation();
     postCreation.setKeyDescription(description);
     postCreation.setKeyLocation(userLocation);
-    if (image.getDrawable() != null) {
+    if (ivImage.getDrawable() != null) {
       postCreation.setImage(new ParseFile(photoFile));
     }
     postCreation.setKeyUser(currentUser);
     postCreation.saveInBackground(
-            e -> {
-              if (e != null) {
-                Log.e("error", "error while saving:" + e);
-                Toast.makeText(PostActivity.this, "error while saving", Toast.LENGTH_SHORT).show();
-              }
-              etdescription.setText("");
-              image.setImageResource(0);
-            });
+        e -> {
+          if (e != null) {
+            Log.e("error", "error while saving:" + e);
+            Toast.makeText(PostActivity.this, "error while saving", Toast.LENGTH_SHORT).show();
+          }
+          etdescription.setText("");
+          ivImage.setImageResource(0);
+        });
   }
 }

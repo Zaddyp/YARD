@@ -1,16 +1,12 @@
 package com.example.yard.Activities;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -22,30 +18,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseUser;
 
-@SuppressWarnings("deprecation")
 public class MainActivity extends AppCompatActivity {
-
   private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
-          item -> {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-              case R.id.nav_home:
-                selectedFragment = new HomeFragment();
-                break;
-              case R.id.nav_events:
-                selectedFragment = new EventFragment();
-                break;
-              case R.id.nav_profile:
-                selectedFragment = new BioFragment();
-                break;
-            }
-            assert selectedFragment != null;
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, selectedFragment)
-                .commit();
-            return true;
-          };
+      item -> {
+        Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+          case R.id.nav_home:
+            selectedFragment = new HomeFragment();
+            break;
+          case R.id.nav_events:
+            selectedFragment = new EventFragment();
+            break;
+          case R.id.nav_profile:
+            selectedFragment = new BioFragment();
+            break;
+        }
+        assert selectedFragment != null;
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, selectedFragment)
+            .commit();
+        return true;
+      };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView image = findViewById(R.id.ivImage);
     FloatingActionButton preview = findViewById(R.id.btnPreview);
     preview.setOnClickListener(
-            view -> {
-              Intent intent = new Intent(MainActivity.this, PostActivity.class);
-              startActivity(intent);
-            });
+        view -> {
+          Intent intent = new Intent(MainActivity.this, PostActivity.class);
+          startActivity(intent);
+        });
   }
 
   @Override

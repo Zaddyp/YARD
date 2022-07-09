@@ -1,5 +1,4 @@
 package com.example.yard.Fragments;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +21,9 @@ public class BioFragment extends Fragment {
   View myFragment;
   ViewPager viewPager;
   TabLayout tabLayout;
-  TextView profileName;
-  TextView userSchool;
-  TextView userTitle;
+  private TextView tvProfileName;
+  private TextView tvUserSchool;
+  private TextView tvUserTitle;
 
   public BioFragment() {
     // Required empty public constructor
@@ -38,7 +37,6 @@ public class BioFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
     myFragment = inflater.inflate(R.layout.fragment_bio, container, false);
     viewPager = myFragment.findViewById(R.id.view_pager);
     tabLayout = myFragment.findViewById(R.id.tab_layout);
@@ -48,13 +46,13 @@ public class BioFragment extends Fragment {
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    profileName = Objects.requireNonNull(getActivity()).findViewById(R.id.tvProfileName);
-    userSchool = getActivity().findViewById(R.id.tvProfileschool);
-    userTitle = getActivity().findViewById(R.id.tvUserTitle);
+    tvProfileName = Objects.requireNonNull(getActivity()).findViewById(R.id.tvProfileName);
+    tvUserSchool = getActivity().findViewById(R.id.tvProfileschool);
+    tvUserTitle = getActivity().findViewById(R.id.tvUserTitle);
     ParseUser currentUser = ParseUser.getCurrentUser();
-    profileName.setText(currentUser.getUsername());
-    userSchool.setText(currentUser.getString("school"));
-    userTitle.setText(currentUser.getString("title"));
+    tvProfileName.setText(currentUser.getUsername());
+    tvUserSchool.setText(currentUser.getString("school"));
+    tvUserTitle.setText(currentUser.getString("title"));
     setUpViewPager(viewPager);
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.addOnTabSelectedListener(
