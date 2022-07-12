@@ -13,10 +13,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.GestureDetector;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity implements View.OnTouchListener, GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
   public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
   public static final int REQUEST_CODE = 100;
   public static final String TAG = "PostActivity";
@@ -51,6 +54,8 @@ public class PostActivity extends AppCompatActivity {
   private TextView etDescription;
   private File photoFile;
   private ImageView ivImage;
+  private GestureDetector gestureDetector;
+  private PostCreation post;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,10 @@ public class PostActivity extends AppCompatActivity {
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     btnGetLocation.setOnClickListener(view -> getLastLocation());
     takePicture.setOnClickListener(view -> launchcamera());
+    ivImage.setOnTouchListener(this);
+    PostCreation post;
+    gestureDetector = new GestureDetector(this, this);
+
     submit.setOnClickListener(
         view -> {
           String description = etDescription.getText().toString();
@@ -186,5 +195,57 @@ public class PostActivity extends AppCompatActivity {
           etDescription.setText("");
           ivImage.setImageResource(0);
         });
+  }
+
+  @Override
+  public boolean onTouch(View view, MotionEvent motionEvent) {
+    gestureDetector.onTouchEvent(motionEvent);
+    return true ;
+  }
+
+  @Override
+  public boolean onDown(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public void onShowPress(MotionEvent motionEvent) {
+
+  }
+
+  @Override
+  public boolean onSingleTapUp(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+    return false;
+  }
+
+  @Override
+  public void onLongPress(MotionEvent motionEvent) {
+    ivImage.setImageResource(0);
+
+  }
+
+  @Override
+  public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+    return false;
+  }
+
+  @Override
+  public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public boolean onDoubleTap(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+    return false;
   }
 }
