@@ -1,6 +1,7 @@
-package com.example.yard.Activities;
+package com.example.yard.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,13 +9,14 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.yard.Fragments.BioFragment;
-import com.example.yard.Fragments.EventFragment;
-import com.example.yard.Fragments.HomeFragment;
 import com.example.yard.R;
+import com.example.yard.fragments.BioFragment;
+import com.example.yard.fragments.EventFragment;
+import com.example.yard.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseUser;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
       };
 
+  @RequiresApi(api = Build.VERSION_CODES.O)
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

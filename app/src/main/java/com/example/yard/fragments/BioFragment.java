@@ -1,4 +1,4 @@
-package com.example.yard.Fragments;
+package com.example.yard.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.yard.Adapter.SectionPagerAdapter;
 import com.example.yard.R;
+import com.example.yard.adapter.SectionPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.parse.ParseUser;
 
@@ -26,9 +26,7 @@ public class BioFragment extends Fragment {
   private TextView tvUserSchool;
   private TextView tvUserTitle;
 
-  public BioFragment() {
-    // Required empty public constructor
-  }
+  public BioFragment() {}
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

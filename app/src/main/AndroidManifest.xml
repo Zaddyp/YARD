@@ -15,7 +15,7 @@
     </queries>
 
     <application
-        android:name=".ParseApplication.ParseApplication"
+        android:name=".parseapplication.ParseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -39,19 +39,19 @@
         </provider>
 
         <activity
-            android:name=".Activities.PostActivity"
+            android:name=".activities.PostActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.SignupActivity"
+            android:name=".activities.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.YardAnimationActivity"
+            android:name=".activities.YardAnimationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

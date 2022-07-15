@@ -1,4 +1,4 @@
-package com.example.yard.Adapter;
+package com.example.yard.adapter;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;

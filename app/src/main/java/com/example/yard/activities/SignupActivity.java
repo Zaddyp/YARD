@@ -1,4 +1,4 @@
-package com.example.yard.Activities;
+package com.example.yard.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -55,7 +55,6 @@ public class SignupActivity extends AppCompatActivity {
           String userTitle = tvTitle.getText().toString();
           String userSchool = tvSchool.getText().toString();
           String[] arrOfStr = emailAddress.split("@", 2);
-
           if (emailAddress.isEmpty() || passwordString.isEmpty() || usernameString.isEmpty()) {
             Toast.makeText(SignupActivity.this, "No field can be left empty", Toast.LENGTH_SHORT)
                 .show();

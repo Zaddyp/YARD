@@ -1,4 +1,4 @@
-package com.example.yard.Activities;
+package com.example.yard.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,8 @@ import com.example.yard.R;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
-  private TextView signUp;
   private TextView tvEmailAddress;
   private TextView password;
-  private Button logInButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     tvEmailAddress = findViewById(R.id.tvEmailAddress);
     password = findViewById(R.id.etPassword);
-    signUp = findViewById(R.id.tvSign);
-    logInButton = findViewById(R.id.btnLogin);
+    TextView signUp = findViewById(R.id.tvSign);
+    Button logInButton = findViewById(R.id.btnLogin);
     signUp.setOnClickListener(
         view -> {
           Intent signUpIntent = new Intent(LoginActivity.this, SignupActivity.class);

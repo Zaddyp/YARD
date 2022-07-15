@@ -1,4 +1,4 @@
-package com.example.yard.Adapter;
+package com.example.yard.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -70,6 +70,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
       ParseFile image = post.getImage();
       if (image != null) {
         Glide.with(context).load(image.getUrl()).into(ivUserImage);
+        ivUserImage.setVisibility(View.VISIBLE);
       } else {
         ivUserImage.setVisibility(View.GONE);
       }

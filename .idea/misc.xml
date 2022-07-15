@@ -21,10 +21,10 @@
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.2864321608040201" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.4627120971679688" />
         <entry key="app/src/main/res/layout/fragment_bio.xml" value="0.3926282051282051" />
-        <entry key="app/src/main/res/layout/fragment_bio_grid.xml" value="0.4244791666666667" />
+        <entry key="app/src/main/res/layout/fragment_bio_grid.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_bio_tag.xml" value="0.41041666666666665" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.5086050724637681" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5086050724637681" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.46209016393442626" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.3319746376811594" />
         <entry key="app/src/main/res/layout/yard_animation.xml" value="0.353713768115942" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.5526041666666667" />

@@ -1,4 +1,4 @@
-package com.example.yard.Fragments;
+package com.example.yard.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.example.yard.R;
 
 public class BioTagFragment extends Fragment {
-  public BioTagFragment() {
-    // Required empty public constructor
-  }
+  public BioTagFragment() {}
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

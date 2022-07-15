@@ -1,8 +1,8 @@
-package com.example.yard.ParseApplication;
+package com.example.yard.parseapplication;
 
 import android.app.Application;
 
-import com.example.yard.Adapter.PostCreation;
+import com.example.yard.adapter.PostCreation;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

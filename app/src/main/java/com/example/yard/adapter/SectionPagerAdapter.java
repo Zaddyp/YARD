@@ -1,4 +1,4 @@
-package com.example.yard.Adapter;
+package com.example.yard.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
