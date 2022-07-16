@@ -31,7 +31,7 @@ public class QueryPosts {
               return;
             }
             allPosts.addAll(posts);
-            adapter.notifyDataSetChanged();
+            //            adapter.notifyDataSetChanged();
             postCount += posts.size();
             if (callback != null) {
               callback.call();

@@ -1,7 +1,10 @@
 package com.example.yard.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
   public static final String TAG = "HomeFragment";
-  final Handler handler = new Handler();
+  Handler handler;
   ProgressBar fetchMoreBar;
   NestedScrollView nestedScrollView;
   int value;
@@ -33,8 +36,16 @@ public class HomeFragment extends Fragment {
   private List<PostCreation> allPosts;
   private QueryPosts queryPosts;
   private ProgressBar loadingBar;
+  private HandlerThread backgroundThread;
+  private Context context;
 
   public HomeFragment() {}
+
+  @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    this.context = context;
+  }
 
   @Nullable
   public View onCreateView(
@@ -45,6 +56,11 @@ public class HomeFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    backgroundThread = new HandlerThread("backgroundThread");
+    backgroundThread.start();
+    handler = new Handler(backgroundThread.getLooper());
+
     RecyclerView rvPosts = getView().findViewById(R.id.rvPosts);
     loadingBar = view.findViewById(R.id.progressBarId);
     fetchMoreBar = view.findViewById(R.id.fetchMoreBar);
@@ -80,6 +96,16 @@ public class HomeFragment extends Fragment {
   public class startActivityBackground implements Runnable {
     @Override
     public void run() {
+      handler.post(
+          new Runnable() {
+            @Override
+            public void run() {
+              if (showProgressBar()) {
+                queryPosts.queryPosts(false, adapter, allPosts, new OnQueryDone());
+              }
+              hasFetchedData = true;
+            }
+          });
       // if the user is just logging in
       if (!hasFetchedData) {
         for (value = 0; value <= 100; value++) {
@@ -91,23 +117,24 @@ public class HomeFragment extends Fragment {
           }
         }
       }
-      handler.post(
-          new Runnable() {
-            @Override
-            public void run() {
-              loadingBar.setVisibility(View.GONE);
-              if (showProgressBar()) {
-                queryPosts.queryPosts(false, adapter, allPosts, new OnQueryDone());
-              }
-              hasFetchedData = true;
-            }
-          });
     }
 
     public class OnQueryDone implements QueryPosts.Callback {
       @Override
       public void call() {
-        fetchMoreBar.setVisibility(View.GONE);
+        if (context instanceof Activity) {
+
+          ((Activity) context)
+              .runOnUiThread(
+                  new Runnable() {
+                    @Override
+                    public void run() {
+                      loadingBar.setVisibility(View.GONE);
+                      fetchMoreBar.setVisibility(View.GONE);
+                      adapter.notifyDataSetChanged();
+                    }
+                  });
+        }
       }
     }
   }
