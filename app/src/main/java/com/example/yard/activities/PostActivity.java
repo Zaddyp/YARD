@@ -46,9 +46,9 @@ public class PostActivity extends AppCompatActivity
     implements View.OnTouchListener,
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener {
-  public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
-  public static final int REQUEST_CODE = 100;
   public static final String TAG = "PostActivity";
+  private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
+  private static final int REQUEST_CODE = 100;
   private static final String PHOTO_FILE_NAME = "photo.jpg";
   FusedLocationProviderClient fusedLocationProviderClient;
   private TextView tvUserAddress;
