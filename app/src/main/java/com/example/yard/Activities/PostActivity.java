@@ -44,10 +44,20 @@ import java.util.List;
 import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
+<<<<<<< HEAD:app/src/main/java/com/example/yard/Activities/PostActivity.java
 public class PostActivity extends AppCompatActivity {
   public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
   public static final int REQUEST_CODE = 100;
   public static final String TAG = "Post";
+=======
+public class PostActivity extends AppCompatActivity
+    implements View.OnTouchListener,
+        GestureDetector.OnGestureListener,
+        GestureDetector.OnDoubleTapListener {
+  public static final String TAG = "PostActivity";
+  private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
+  private static final int REQUEST_CODE = 100;
+>>>>>>> 8d01e8b (Post Activity - reformated):app/src/main/java/com/example/yard/activities/PostActivity.java
   private static final String PHOTO_FILE_NAME = "photo.jpg";
   Button getLocation;
   TextView userAddress;
