@@ -39,6 +39,6 @@ public class BioGridFragment extends Fragment {
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
     queryPosts = new QueryPosts();
-    queryPosts.queryPosts(true, adapter, allPosts, null);
+    queryPosts.PostQueryHelper(true, adapter, allPosts, null);
   }
 }

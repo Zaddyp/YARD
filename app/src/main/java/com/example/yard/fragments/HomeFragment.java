@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
               if (showProgressBar()) {
-                queryPosts.queryPosts(false, adapter, allPosts, new OnQueryDone());
+                queryPosts.PostQueryHelper(false, adapter, allPosts, new OnQueryDone());
               }
               hasFetchedData = true;
             }
