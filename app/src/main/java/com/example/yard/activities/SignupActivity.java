@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class SignupActivity extends AppCompatActivity {
   // HBCUs in Tennesse, Virginia, and Delaware
-  final String[] schools = {
+  private static final String[] schools = {
     "my.fisk.edu",
     "lanecollege.edu",
     "my.tnstate.edu",
@@ -41,13 +41,13 @@ public class SignupActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_signup);
     ParseInstallation.getCurrentInstallation().saveInBackground();
-    Button signUp = findViewById(R.id.btnSigningup);
+    Button btnSignUp = findViewById(R.id.btnSigningup);
     tvEmailAddress = findViewById(R.id.editTextEmailAddress);
     tvPassword = findViewById(R.id.tvPassword);
     tvSchool = findViewById(R.id.tvSchool);
     tvUsername = findViewById(R.id.tvName);
     tvTitle = findViewById(R.id.tvTitle);
-    signUp.setOnClickListener(
+      btnSignUp.setOnClickListener(
         view -> {
           String emailAddress = tvEmailAddress.getText().toString();
           String passwordString = tvPassword.getText().toString();
