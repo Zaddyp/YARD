@@ -100,9 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:onClick="activity_signup"
             android:text="Sign Up"
-            android:textColor="@color/white"
-            android:onClick="activity_signup"/>
+            android:textColor="@color/white" />
 
 
     </LinearLayout>
