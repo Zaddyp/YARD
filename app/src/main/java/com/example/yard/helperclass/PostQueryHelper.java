@@ -9,10 +9,10 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-public class QueryPosts {
+public class PostQueryHelper {
   int postCount = 0;
 
-  public void PostQueryHelper(
+  public void postQueryHelper(
       boolean isFromBio, PostsAdapter adapter, List<PostCreation> allPosts, Callback callback) {
     ParseQuery<PostCreation> query = ParseQuery.getQuery(PostCreation.class);
     query.include(PostCreation.KEY_USER);

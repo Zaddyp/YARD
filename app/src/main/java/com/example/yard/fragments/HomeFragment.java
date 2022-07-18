@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yard.R;
 import com.example.yard.adapter.PostCreation;
 import com.example.yard.adapter.PostsAdapter;
-import com.example.yard.helperclass.QueryPosts;
+import com.example.yard.helperclass.PostQueryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
   boolean hasFetchedData = false;
   private PostsAdapter adapter;
   private List<PostCreation> allPosts;
-  private QueryPosts queryPosts;
+  private PostQueryHelper queryPosts;
   private ProgressBar loadingBar;
   private HandlerThread backgroundThread;
   private Context context;
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     adapter = new PostsAdapter(getContext(), allPosts);
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-    queryPosts = new QueryPosts();
+    queryPosts = new PostQueryHelper();
     startThread();
     nestedScrollView.setOnScrollChangeListener(
         new NestedScrollView.OnScrollChangeListener() {
@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
               if (showProgressBar()) {
-                queryPosts.PostQueryHelper(false, adapter, allPosts, new OnQueryDone());
+                queryPosts.postQueryHelper(false, adapter, allPosts, new OnQueryDone());
               }
               hasFetchedData = true;
             }
@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
       }
     }
 
-    public class OnQueryDone implements QueryPosts.Callback {
+    public class OnQueryDone implements PostQueryHelper.Callback {
       @Override
       public void call() {
         if (context instanceof Activity) {

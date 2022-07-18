@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.yard.R;
 import com.example.yard.adapter.PostCreation;
 import com.example.yard.adapter.PostsAdapter;
-import com.example.yard.helperclass.QueryPosts;
+import com.example.yard.helperclass.PostQueryHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class BioGridFragment extends Fragment {
   protected RecyclerView rvPosts;
   protected List<PostCreation> allPosts;
   protected PostsAdapter adapter;
-  QueryPosts queryPosts;
+  PostQueryHelper queryPosts;
 
   @Nullable
   public View onCreateView(
@@ -38,7 +38,7 @@ public class BioGridFragment extends Fragment {
     adapter = new PostsAdapter(getContext(), allPosts);
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-    queryPosts = new QueryPosts();
-    queryPosts.PostQueryHelper(true, adapter, allPosts, null);
+    queryPosts = new PostQueryHelper();
+    queryPosts.postQueryHelper(true, adapter, allPosts, null);
   }
 }
