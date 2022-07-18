@@ -1,5 +1,6 @@
 package com.example.yard.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,13 @@ public class BioGridFragment extends Fragment {
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
     queryPosts = new PostQueryHelper();
-    queryPosts.postQueryHelper(true, adapter, allPosts, null);
+    queryPosts.postQueryHelper(true, adapter, allPosts, new OnQueryDone());
+  }
+
+  private class OnQueryDone implements PostQueryHelper.Callback {
+    @Override
+    public void call() {
+      adapter.notifyDataSetChanged();
+    }
   }
 }

@@ -31,7 +31,6 @@ public class PostQueryHelper {
               return;
             }
             allPosts.addAll(posts);
-            //            adapter.notifyDataSetChanged();
             postCount += posts.size();
             if (callback != null) {
               callback.call();

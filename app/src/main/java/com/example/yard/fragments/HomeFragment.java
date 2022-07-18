@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment {
       }
     }
 
-    public class OnQueryDone implements PostQueryHelper.Callback {
+    private class OnQueryDone implements PostQueryHelper.Callback {
       @Override
       public void call() {
         if (context instanceof Activity) {
