@@ -28,9 +28,7 @@ public class YardAnimationActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-              // do here the action you want
               if (animationFirstRun) {
-                // show start activity
                 finish();
                 startActivity(new Intent(YardAnimationActivity.this, LoginActivity.class));
               }

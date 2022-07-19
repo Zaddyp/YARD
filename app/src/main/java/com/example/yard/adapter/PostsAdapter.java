@@ -19,9 +19,9 @@ import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
   private final Context context;
-  private final List<PostCreation> posts;
+  private final List<Post> posts;
 
-  public PostsAdapter(Context context, List<PostCreation> posts) {
+  public PostsAdapter(Context context, List<Post> posts) {
     this.context = context;
     this.posts = posts;
   }
@@ -35,7 +35,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    PostCreation post = posts.get(position);
+    Post post = posts.get(position);
     holder.bind(post);
   }
 
@@ -58,7 +58,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
       tvLocation = itemView.findViewById(R.id.tvLocation);
     }
 
-    public void bind(PostCreation post) {
+    public void bind(Post post) {
       tvCaption.setText(post.getKeyDescription());
       if (post.getKeyUser() == null) {
         Toast.makeText(context, "User doesn't exist", Toast.LENGTH_SHORT).show();

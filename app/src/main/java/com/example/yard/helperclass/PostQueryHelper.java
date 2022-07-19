@@ -1,6 +1,6 @@
 package com.example.yard.helperclass;
 
-import com.example.yard.adapter.PostCreation;
+import com.example.yard.adapter.Post;
 import com.example.yard.adapter.PostsAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -13,20 +13,20 @@ public class PostQueryHelper {
   int postCount = 0;
 
   public void postQueryHelper(
-      boolean isFromBio, PostsAdapter adapter, List<PostCreation> allPosts, Callback callback) {
-    ParseQuery<PostCreation> query = ParseQuery.getQuery(PostCreation.class);
-    query.include(PostCreation.KEY_USER);
+      boolean isFromBio, PostsAdapter adapter, List<Post> allPosts, Callback callback) {
+    ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+    query.include(Post.KEY_USER);
     if (isFromBio) {
-      query.whereEqualTo(PostCreation.KEY_USER, ParseUser.getCurrentUser());
+      query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
     }
     query.setLimit(15);
     // create a method called count = 0, count = 15 + count,
     query.setSkip(postCount);
-    query.addDescendingOrder(PostCreation.KEY_CREATED_AT);
+    query.addDescendingOrder(Post.KEY_CREATED_AT);
     query.findInBackground(
-        new FindCallback<PostCreation>() {
+        new FindCallback<Post>() {
           @Override
-          public void done(List<PostCreation> posts, ParseException e) {
+          public void done(List<Post> posts, ParseException e) {
             if (e != null) {
               return;
             }

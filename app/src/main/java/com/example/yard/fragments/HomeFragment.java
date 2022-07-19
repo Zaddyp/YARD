@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yard.R;
-import com.example.yard.adapter.PostCreation;
+import com.example.yard.adapter.Post;
 import com.example.yard.adapter.PostsAdapter;
 import com.example.yard.helperclass.PostQueryHelper;
 
@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
   int value;
   boolean hasFetchedData = false;
   private PostsAdapter adapter;
-  private List<PostCreation> allPosts;
+  private List<Post> allPosts;
   private PostQueryHelper queryPosts;
   private ProgressBar loadingBar;
   private HandlerThread backgroundThread;

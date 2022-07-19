@@ -1,6 +1,5 @@
 package com.example.yard.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yard.R;
-import com.example.yard.adapter.PostCreation;
+import com.example.yard.adapter.Post;
 import com.example.yard.adapter.PostsAdapter;
 import com.example.yard.helperclass.PostQueryHelper;
 
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class BioGridFragment extends Fragment {
   protected RecyclerView rvPosts;
-  protected List<PostCreation> allPosts;
+  protected List<Post> allPosts;
   protected PostsAdapter adapter;
   PostQueryHelper queryPosts;
 
