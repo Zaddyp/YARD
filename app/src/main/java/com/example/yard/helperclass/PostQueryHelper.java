@@ -12,7 +12,7 @@ import java.util.List;
 public class PostQueryHelper {
   int postCount = 0;
 
-  public void queryPost(
+  public void postQueryHelper(
       boolean isFromBio, PostsAdapter adapter, List<Post> allPosts, Callback callback) {
     ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
     query.include(Post.KEY_USER);
