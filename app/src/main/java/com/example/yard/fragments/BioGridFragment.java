@@ -23,7 +23,7 @@ public class BioGridFragment extends Fragment {
   protected RecyclerView rvPosts;
   protected List<Post> allPosts;
   protected PostsAdapter adapter;
-  PostQueryHelper queryPosts;
+  PostQueryHelper postQueryHelper;
 
   @Nullable
   public View onCreateView(
@@ -38,8 +38,8 @@ public class BioGridFragment extends Fragment {
     adapter = new PostsAdapter(getContext(), allPosts);
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-    queryPosts = new PostQueryHelper();
-    queryPosts.postQueryHelper(true, adapter, allPosts, new OnQueryDone());
+    postQueryHelper = new PostQueryHelper();
+    postQueryHelper.queryPost(true, adapter, allPosts, new OnQueryDone());
   }
 
   private class OnQueryDone implements PostQueryHelper.Callback {
