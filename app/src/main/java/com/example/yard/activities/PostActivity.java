@@ -30,7 +30,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.yard.R;
-import com.example.yard.adapter.Post;
+import com.example.yard.adapter.PostCreation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.parse.ParseFile;
@@ -43,12 +43,14 @@ import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PostActivity extends AppCompatActivity
-    implements View.OnTouchListener, GestureDetector.OnGestureListener {
-  private static final String TAG = "PostActivity";
+    implements View.OnTouchListener,
+        GestureDetector.OnGestureListener,
+        GestureDetector.OnDoubleTapListener {
+  public static final String TAG = "PostActivity";
   private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
   private static final int REQUEST_CODE = 100;
   private static final String PHOTO_FILE_NAME = "photo.jpg";
-  private FusedLocationProviderClient fusedLocationProviderClient;
+  FusedLocationProviderClient fusedLocationProviderClient;
   private TextView tvUserAddress;
   private TextView etDescription;
   private File photoFile;
@@ -59,9 +61,9 @@ public class PostActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post);
-    Button btnTakePicture = findViewById(R.id.btnTakePicture);
-    Button btnSubmit = findViewById(R.id.btnSubmit);
-    Button btnUpload = findViewById(R.id.btnUploadPicture);
+    Button takePicture = findViewById(R.id.btnTakePicture);
+    Button submit = findViewById(R.id.btnSubmit);
+    Button upload = findViewById(R.id.btnUploadPicture);
     etDescription = findViewById(R.id.tvDescription);
     ivImage = findViewById(R.id.ivImage);
     tvUserAddress = findViewById(R.id.tvLocationAddress);
@@ -70,13 +72,13 @@ public class PostActivity extends AppCompatActivity
     Button btnRemoveLocation = findViewById(R.id.btnRemoveLocation);
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     btnGetLocation.setOnClickListener(view -> getLastLocation());
-    btnTakePicture.setOnClickListener(view -> launchcamera());
+    takePicture.setOnClickListener(view -> launchcamera());
     ivImage.setOnTouchListener(this);
     gestureDetector = new GestureDetector(this, this);
     Toast.makeText(
             this, " SWIPE left or right to DELETE a photo after taking it!", Toast.LENGTH_LONG)
         .show();
-    btnSubmit.setOnClickListener(
+    submit.setOnClickListener(
         view -> {
           String description = etDescription.getText().toString();
           String userLocation = tvUserAddress.getText().toString();
@@ -177,14 +179,14 @@ public class PostActivity extends AppCompatActivity
 
   private void savePost(
       String description, String userLocation, ParseUser currentUser, File photoFile) {
-    Post post = new Post();
-    post.setKeyDescription(description);
-    post.setKeyLocation(userLocation);
+    PostCreation postCreation = new PostCreation();
+    postCreation.setKeyDescription(description);
+    postCreation.setKeyLocation(userLocation);
     if (ivImage.getDrawable() != null) {
-      post.setImage(new ParseFile(photoFile));
+      postCreation.setImage(new ParseFile(photoFile));
     }
-    post.setKeyUser(currentUser);
-    post.saveInBackground(
+    postCreation.setKeyUser(currentUser);
+    postCreation.saveInBackground(
         e -> {
           if (e != null) {
             Log.e("error", "error while saving:" + e);
@@ -225,6 +227,21 @@ public class PostActivity extends AppCompatActivity
   @Override
   public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
     ivImage.setImageResource(0);
+    return false;
+  }
+
+  @Override
+  public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public boolean onDoubleTap(MotionEvent motionEvent) {
+    return false;
+  }
+
+  @Override
+  public boolean onDoubleTapEvent(MotionEvent motionEvent) {
     return false;
   }
 }
