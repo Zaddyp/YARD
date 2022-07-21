@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
   private TextView tvEmailAddress;
-  private TextView password;
+  private TextView tvPassword;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +23,19 @@ public class LoginActivity extends AppCompatActivity {
       goMainActivity();
     }
     tvEmailAddress = findViewById(R.id.tvEmailAddress);
-    password = findViewById(R.id.etPassword);
-    TextView signUp = findViewById(R.id.tvSign);
-    Button logInButton = findViewById(R.id.btnLogin);
-    signUp.setOnClickListener(
+    tvPassword = findViewById(R.id.etPassword);
+    TextView tvSignUp = findViewById(R.id.tvSign);
+    Button btnLogIn = findViewById(R.id.btnLogin);
+    tvSignUp.setOnClickListener(
         view -> {
           Intent signUpIntent = new Intent(LoginActivity.this, SignupActivity.class);
           startActivity(signUpIntent);
         });
-    logInButton.setOnClickListener(
+    btnLogIn.setOnClickListener(
         view -> {
-          String stringEmail = tvEmailAddress.getText().toString();
-          String stringPassword = password.getText().toString();
-          loginUser(stringEmail, stringPassword);
+          String strEmail = tvEmailAddress.getText().toString();
+          String strPassword = tvPassword.getText().toString();
+          loginUser(strEmail, strPassword);
         });
   }
 

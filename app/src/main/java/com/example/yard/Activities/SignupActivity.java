@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
     tvSchool = findViewById(R.id.tvSchool);
     tvUsername = findViewById(R.id.tvName);
     tvTitle = findViewById(R.id.tvTitle);
-      btnSignUp.setOnClickListener(
+    btnSignUp.setOnClickListener(
         view -> {
           String emailAddress = tvEmailAddress.getText().toString();
           String passwordString = tvPassword.getText().toString();
