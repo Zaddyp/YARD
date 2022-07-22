@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
   boolean hasFetchedData = false;
   private PostsAdapter adapter;
   private List<Post> allPosts;
-  private PostQueryHelper postQueryHelper;
+  private PostQueryHelper queryPosts;
   private ProgressBar loadingBar;
   private HandlerThread backgroundThread;
   private Context context;
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     adapter = new PostsAdapter(getContext(), allPosts);
     rvPosts.setAdapter(adapter);
     rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-    postQueryHelper = new PostQueryHelper();
+    queryPosts = new PostQueryHelper();
     startThread();
     nestedScrollView.setOnScrollChangeListener(
         new NestedScrollView.OnScrollChangeListener() {
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
   }
 
   public void startThread() {
-    QueryPostInBackgroundRunnable startActivity = new QueryPostInBackgroundRunnable();
+    startActivityBackground startActivity = new startActivityBackground();
     new Thread(startActivity).start();
   }
 
@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
     return true;
   }
 
-  public class QueryPostInBackgroundRunnable implements Runnable {
+  public class startActivityBackground implements Runnable {
     @Override
     public void run() {
       handler.post(
@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
               if (showProgressBar()) {
-                postQueryHelper.queryPost(false, adapter, allPosts, new OnQueryDone());
+                queryPosts.postQueryHelper(false, adapter, allPosts, new OnQueryDone());
               }
               hasFetchedData = true;
             }
