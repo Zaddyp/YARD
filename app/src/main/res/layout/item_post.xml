@@ -24,8 +24,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/roundImageView"
         app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+        app:shapeAppearanceOverlay="@style/roundImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
