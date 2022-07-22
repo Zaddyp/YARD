@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yard.R;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 
 import java.util.List;
@@ -36,7 +36,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     Post post = posts.get(position);
-    holder.bind(post);
+    try {
+      holder.bind(post);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -49,6 +53,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private final ImageView ivUserImage;
     private final TextView tvCaption;
     private final TextView tvLocation;
+    private final View postDivider;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -56,12 +61,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
       ivUserImage = itemView.findViewById(R.id.ivUserImage);
       tvCaption = itemView.findViewById(R.id.tvCaption);
       tvLocation = itemView.findViewById(R.id.tvLocation);
+      postDivider = itemView.findViewById(R.id.postSeparator);
     }
 
-    public void bind(Post post) {
+    public void bind(Post post) throws ParseException {
       tvCaption.setText(post.getKeyDescription());
       if (post.getKeyUser() == null) {
-        Toast.makeText(context, "User doesn't exist", Toast.LENGTH_SHORT).show();
+        //        User doesn't exist
+        postDivider.setVisibility(View.GONE);
+        tvUsername.setVisibility(View.GONE);
+        ivUserImage.setVisibility(View.GONE);
+        tvCaption.setVisibility(View.GONE);
+        tvLocation.setVisibility(View.GONE);
         return;
       } else {
         tvUsername.setText(post.getKeyUser().getUsername());
