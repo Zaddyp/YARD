@@ -7,7 +7,7 @@
         android:fillColor="@color/white"
         android:pathData="M21,18l0,-7l-10,-10l-10,10l0,20l20,0l0,-7"
         android:strokeWidth="2"
-        android:strokeColor="@color/white"
+        android:strokeColor="#000000"
         android:strokeLineJoin="round" />
     <path
         android:fillColor="#00000000"

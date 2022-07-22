@@ -5,26 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tvUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/ivUserImage"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/roundImageView"
         app:layout_constraintTop_toBottomOf="@+id/tvLocation"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -33,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/robotobold"
         android:text="Username"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -47,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/robotolight"
         android:text="Location"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,12 +46,9 @@
         android:id="@+id/tvCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/robotomedium"
-        android:paddingLeft="10dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivUserImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
