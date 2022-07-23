@@ -3,6 +3,7 @@ package com.example.yard.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -46,6 +47,7 @@ public class PostActivity extends AppCompatActivity
     implements View.OnTouchListener, GestureDetector.OnGestureListener {
   private static final String TAG = "PostActivity";
   private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 45;
+  private static final int GALLERY_REQUEST_CODE = 60;
   private static final int REQUEST_CODE = 100;
   private static final String PHOTO_FILE_NAME = "photo.jpg";
   private FusedLocationProviderClient fusedLocationProviderClient;
@@ -70,12 +72,16 @@ public class PostActivity extends AppCompatActivity
     Button btnRemoveLocation = findViewById(R.id.btnRemoveLocation);
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     btnGetLocation.setOnClickListener(view -> getLastLocation());
-    btnTakePicture.setOnClickListener(view -> launchcamera());
+    btnTakePicture.setOnClickListener(view -> uploadImage(true));
     ivImage.setOnTouchListener(this);
     gestureDetector = new GestureDetector(this, this);
     Toast.makeText(
             this, " SWIPE left or right to DELETE a photo after taking it!", Toast.LENGTH_LONG)
         .show();
+    btnUpload.setOnClickListener(
+        view -> {
+          uploadImage(false);
+        });
     btnSubmit.setOnClickListener(
         view -> {
           String description = etDescription.getText().toString();
@@ -143,14 +149,22 @@ public class PostActivity extends AppCompatActivity
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
-  private void launchcamera() {
-    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
-    Uri fileProvider =
-        FileProvider.getUriForFile(PostActivity.this, "com.codepath.fileprovider", photoFile);
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-    if (intent.resolveActivity(PostActivity.this.getPackageManager()) != null) {
-      startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+  private void uploadImage(Boolean takePicture) {
+    if (takePicture) {
+      Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+      photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
+      Uri fileProvider =
+          FileProvider.getUriForFile(PostActivity.this, "com.codepath.fileprovider", photoFile);
+      intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+      if (intent.resolveActivity(PostActivity.this.getPackageManager()) != null) {
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+      }
+    } else {
+      Intent intent = new Intent(Intent.ACTION_PICK);
+      intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+      if (intent.resolveActivity(PostActivity.this.getPackageManager()) != null) {
+        startActivityForResult(intent, GALLERY_REQUEST_CODE);
+      }
     }
   }
 
@@ -165,6 +179,24 @@ public class PostActivity extends AppCompatActivity
         Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
       }
     }
+    if (requestCode == GALLERY_REQUEST_CODE) {
+      if (resultCode == RESULT_OK) {
+        Uri fileUri = data.getData();
+        ivImage.setImageURI(fileUri);
+        photoFile = new File(getPaths(fileUri));
+      }
+    }
+  }
+
+  public String getPaths(Uri uri) {
+    String[] projection = {MediaStore.Images.Media.DATA};
+    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+    if (cursor == null) return null;
+    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+    cursor.moveToFirst();
+    String strResult = cursor.getString(column_index);
+    cursor.close();
+    return strResult;
   }
 
   public File getPhotoFileUri(String fileName) {
