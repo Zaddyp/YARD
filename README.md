@@ -11,14 +11,14 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-YARD is a social media application used to foster relationship among Historically Black Colleges and Universities (HBCUs), and create awareness.
+YARD is a social media application that is used to allow students attending Historically Black Colleges and Universities (HBCUs) always connected, and create awareness them.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category:** - social media 
 - **Mobile:** - Mobile is view only and uses camera
 - **Story:** - Allows users to share their lives in pictures and enhance their content 
-- **Market:** - The targeted audience is anyone attending a HBCU.  
+- **Market:** - The targeted audience is students attending a HBCU.  
 - **Habit:** - Users can post throughout the day many times. Users can explore endless pictures in any category imaginable whenever they want. Very habbit forming!
 - **Scope:** - Starting out narrow focused to school by school based on Geography before expanding to every HBCU student across the country
 
@@ -31,28 +31,29 @@ YARD is a social media application used to foster relationship among Historicall
 
 * Log in and Sign up - users can log in and sign up
     * verifying emails
-* Bio - users can view their profiles
+* Bio - users can view their profile and personal posts
 * Home - user can see feeds 
     * user can post 
 * Compose
-    * users can post photos, texts and videos
-    * video uploading - size and storing in the database
-* Gestures - users can double tap to like 
-* Animation - animated logo
-* SDKs
-* Visual Polish from external libraries
+    * users can post photos,and texts
+* Gestures - users can swipe left or right to delete picture they wanted to post
+* Animation - animated progress bar
+* SDKs - Google Maps SDK to get the location
+* Visual Polish from external libraries - Lottie
 
 **Optional Nice-to-have Stories**
+* Delete Account - Privacy
+* beautifying the app for better UI/UX
+* log out 
+* Google fonts for app font
 * Events - users can see whats happening like trends etc 
 * Search - users can search for other users
 * Refresh to see new posts
-* post can show locations 
 * search with different flters like based on school, majors etc
-* log in with gmail option
+* log in with facebook option
 * chat
-* algorithm to suggest 
 * stories
-* beautifying the app for better UI/UX
+
 
 
 ### 2. Screen Archetypes
@@ -62,15 +63,12 @@ YARD is a social media application used to foster relationship among Historicall
    * For sign up - username, school, school email, classification, major, password
 * Home
    * Feeds showing posts 
-   * Highlights
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 * Home
-* Events
-* Search
 * Bio
 
 **Flow Navigation** (Screen to Screen)
@@ -79,8 +77,6 @@ YARD is a social media application used to foster relationship among Historicall
    * if the person does - Home page
 * [list second screen here] Home 
    * Home - where the feeds are 
-   * Events - what's happening?
-   * Search - search 
    * Bio - profile, about, posts 
 
 
@@ -106,7 +102,6 @@ YARD is a social media application used to foster relationship among Historicall
    *(Read/GET) Query all posts where user is author
 * (Create/POST) Create a new like on a post
 
-* (Create/POST) Create a new comment on a post
 
 * Create Post Screen
    * (Create/POST) Create a new post object
