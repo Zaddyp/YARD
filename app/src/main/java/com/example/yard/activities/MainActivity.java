@@ -16,12 +16,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.yard.R;
+import com.example.yard.adapter.Post;
 import com.example.yard.fragments.BioFragment;
 import com.example.yard.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.DeleteCallback;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -80,39 +86,58 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
       case R.id.btnDelete:
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder
-            .setTitle("DELETE ACCOUNT")
-            .setMessage("CONFIRM: Do you want to delete your account ? ")
-            .setNegativeButton(
-                "NO",
-                new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialogInterface, int i) {}
-                })
-            .setPositiveButton(
-                "YES",
-                new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialogInterface, int i) {
-                    ParseUser user = ParseUser.getCurrentUser();
-                    user.deleteInBackground(
-                        new DeleteCallback() {
-                          @Override
-                          public void done(com.parse.ParseException e) {
-                            if (e == null) {
-                              ParseUser.logOut();
-                              Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                              startActivity(intent);
-                            } else {
-                              e.printStackTrace();
-                            }
-                          }
-                        });
-                  }
-                })
-            .show();
+        deleteUser();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void deleteUser() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder
+        .setTitle("DELETE ACCOUNT")
+        .setMessage("CONFIRM: Do you want to delete your account ? ")
+        .setNegativeButton(
+            "NO",
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {}
+            })
+        .setPositiveButton(
+            "YES",
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                ParseUser user = ParseUser.getCurrentUser();
+                ParseQuery<Post> query = new ParseQuery<>("Post");
+                query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+                query.findInBackground(
+                    new FindCallback<Post>() {
+                      @Override
+                      public void done(List<Post> objects, ParseException e) {
+                        for (Post object : objects) {
+                          object.deleteInBackground(
+                              new DeleteCallback() {
+                                @Override
+                                public void done(ParseException e) {}
+                              });
+                        }
+                      }
+                    });
+                user.deleteInBackground(
+                    new DeleteCallback() {
+                      @Override
+                      public void done(com.parse.ParseException e) {
+                        if (e == null) {
+                          ParseUser.logOut();
+                          Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                          startActivity(intent);
+                        } else {
+                          e.printStackTrace();
+                        }
+                      }
+                    });
+              }
+            })
+        .show();
   }
 }
