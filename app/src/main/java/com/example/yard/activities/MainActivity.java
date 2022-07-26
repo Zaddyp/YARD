@@ -1,5 +1,6 @@
 package com.example.yard.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,15 +11,16 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.yard.R;
 import com.example.yard.fragments.BioFragment;
-import com.example.yard.fragments.EventFragment;
 import com.example.yard.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.parse.DeleteCallback;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -77,6 +79,39 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         return true;
+      case R.id.btnDelete:
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+            .setTitle("DELETE ACCOUNT")
+            .setMessage("CONFIRM: Do you want to delete your account ? ")
+            .setNegativeButton(
+                "NO",
+                new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {}
+                })
+            .setPositiveButton(
+                "YES",
+                new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                    ParseUser user = ParseUser.getCurrentUser();
+                    user.deleteInBackground(
+                        new DeleteCallback() {
+                          @Override
+                          public void done(com.parse.ParseException e) {
+                            if (e == null) {
+                              ParseUser.logOut();
+                              Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                              startActivity(intent);
+                            } else {
+                              e.printStackTrace();
+                            }
+                          }
+                        });
+                  }
+                })
+            .show();
     }
     return super.onOptionsItemSelected(item);
   }
