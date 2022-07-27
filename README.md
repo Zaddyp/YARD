@@ -29,7 +29,7 @@ YARD is a social media application that is used to allow students attending Hist
 
 **Required Must-have Stories**
 
-* Log in and Sign up - users can log in and sign up
+* [x] Log in and Sign up - users can log in and sign up
     * verifying emails
 * Bio - users can view their profile and personal posts
 * Home - user can see feeds 
@@ -42,7 +42,8 @@ YARD is a social media application that is used to allow students attending Hist
 * Visual Polish from external libraries - Lottie
 
 **Optional Nice-to-have Stories**
-* Delete Account - Privacy
+* Delete Account - Privacy 
+   * Not the most efficient solution. I plan on making it more effective by using an API that can bulk delete all posts assigned to a user id.
 * beautifying the app for better UI/UX
 * log out 
 * Google fonts for app font
