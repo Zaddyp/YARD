@@ -30,23 +30,25 @@ YARD is a social media application that is used to allow students attending Hist
 **Required Must-have Stories**
 
 * [x] Log in and Sign up - users can log in and sign up
-    * verifying emails
-* Bio - users can view their profile and personal posts
-* Home - user can see feeds 
+    * verifying user emails belong to an HBCU
+* [x] Bio - users can view their profile and personal posts
+* [x] Home - user can see feeds 
     * user can post 
-* Compose
+* [x] Compose
     * users can post photos,and texts
-* Gestures - users can swipe left or right to delete picture they wanted to post
-* Animation - animated progress bar
-* SDKs - Google Maps SDK to get the location
-* Visual Polish from external libraries - Lottie
+* [x] Gestures - users can swipe left or right to delete picture they wanted to post
+* [x] Animation - animated progress bar
+* [x] SDKs - Google Maps SDK to get the location
+* [x] Visual Polish from external libraries - Lottie
 
 **Optional Nice-to-have Stories**
-* Delete Account - Privacy 
+* [x] Delete Account - Privacy 
    * Not the most efficient solution. I plan on making it more effective by using an API that can bulk delete all posts assigned to a user id.
-* beautifying the app for better UI/UX
-* log out 
-* Google fonts for app font
+* [x] beautifying the app for better UI/UX
+* [x] log out 
+* [x] Google fonts for app font
+* [x] Users can like a post
+* [x] Users can see more about a particular user by clicking the person's username 
 * Events - users can see whats happening like trends etc 
 * Search - users can search for other users
 * Refresh to see new posts
