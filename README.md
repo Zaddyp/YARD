@@ -57,11 +57,12 @@ YARD is a social media application that is used to allow students attending Hist
 * chat
 * stories
 
-DIFFICULTIES
+## DIFFICULTIES
 - Verifying the user attends an HBCU after signing up. Users cant log in until the school email has been verified that it belongs to an HBCU. I started with HBCUs in some specific states like Delaware, Tennessee, and Virginia.
    * solution: I got the formats of those HBCU emails and immediately tells the user that he cant sign up if his email doesnt match the format of the HBCU emails i fetched from the school's website. If it matches, my algorithm then sends a verification link to the email and the user cant log in until he/she verifies. So ther user cant fake an email address. The user details doesnt also take space in the database. That is, until the user has been verified before the information is stored in the database
 - Background thread and pagination:
-   * solution - for background thread, i used a calculated loading the bar to show the posts are loading and before it finishes the posts would have queried. I did so because background thread makes my app faster since it isnt running on the UI thread 
+   * solution - for background thread, i used a calculated loading bar to show the posts are loading and at most before the loading bar finishes the posts would have queried. I did so because background thread makes my app way faster since it isnt running on the UI thread and the user wont be seeing any blank screen. I created a handler thread and used a handler to run it in the background while the loading bar is loading.
+   * For pagination, i used "set skip" on the query to continue adding 15 posts and then when the user scrolls to the end, it loads and fetches another 15 posts
 
 
 
