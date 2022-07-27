@@ -43,7 +43,7 @@ YARD is a social media application that is used to allow students attending Hist
 
 **Optional Nice-to-have Stories**
 * [x] Delete Account - Privacy 
-   * Not the most efficient solution. I plan on making it more effective by using an API that can bulk delete all posts assigned to a user id.
+   * I had to get the current user, query the posts for the current user, created a list of objects representing the posts, then deleted them individualy. NB: Not the most efficient solution. I plan on making it more effective by using an API that can bulk delete all posts assigned to a user id.
 * [x] beautifying the app for better UI/UX
 * [x] log out 
 * [x] Google fonts for app font
