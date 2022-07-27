@@ -49,6 +49,7 @@ YARD is a social media application that is used to allow students attending Hist
 * [x] Google fonts for app font
 * [x] Users can like a post
 * [x] Users can see more about a particular user by clicking the person's username 
+* [x] Users can change profile pictures through uploading or taking pictures
 * Events - users can see whats happening like trends etc 
 * Search - users can search for other users
 * Refresh to see new posts
