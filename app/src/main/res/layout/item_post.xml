@@ -13,14 +13,17 @@
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tvUsername"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41" />
+
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivUserImage"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,13 +37,13 @@
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/robotobold"
         android:text="Username"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,12 +51,12 @@
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/robotolight"
         android:text="Location"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.016"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
@@ -61,7 +64,7 @@
         android:id="@+id/tvCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/robotomedium"
         android:paddingLeft="10dp"
         android:text="TextView"
@@ -69,4 +72,29 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivUserImage" />
+
+    <ToggleButton
+        android:id="@+id/btnLike"
+        android:layout_width="23dp"
+        android:layout_height="29dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/toggle_selector"
+        android:onClick="onCustomToggleClick"
+        android:text="ToggleButton"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCaption" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivUserProfilePicture"
+        android:layout_width="40dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
+        android:transitionName="detail_transition"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postSeparator"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>
