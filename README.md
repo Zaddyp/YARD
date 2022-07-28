@@ -2,10 +2,6 @@ Original App Design Project - README Template
 ===
 
 ### YARD
-## INSTRUCTIONS
-* to change profile picture, tap on the profile image in the bio fragment
-* to see more about a user, you can click on the user's name on the post
-* after taking a picture to post and you no longer need it, swipe either left or right to remove the picture
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -26,8 +22,13 @@ YARD is a social media application that is used to allow students attending Hist
 - **Habit:** - Users can post throughout the day many times. Users can explore endless pictures in any category imaginable whenever they want. Very habbit forming!
 - **Scope:** - Starting out narrow focused to school by school based on Geography before expanding to every HBCU student across the country
 
-
 ## Product Spec
+
+#### INSTRUCTIONS
+* to change profile picture, tap on the profile image in the bio fragment
+* to see more about a user, you can click on the user's name on the post
+* after taking a picture to post and you no longer need it, swipe either left or right to remove the picture
+
 
 ### 1. User Stories (Required and Optional)
 
