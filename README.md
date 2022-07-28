@@ -11,14 +11,14 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-YARD is a social media application used to foster relationship among Historically Black Colleges and Universities (HBCUs), and create awareness.
+YARD is a social media application that is used to allow students attending Historically Black Colleges and Universities (HBCUs) always connected, and create awareness them.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category:** - social media 
 - **Mobile:** - Mobile is view only and uses camera
 - **Story:** - Allows users to share their lives in pictures and enhance their content 
-- **Market:** - The targeted audience is anyone attending a HBCU.  
+- **Market:** - The targeted audience is students attending a HBCU.  
 - **Habit:** - Users can post throughout the day many times. Users can explore endless pictures in any category imaginable whenever they want. Very habbit forming!
 - **Scope:** - Starting out narrow focused to school by school based on Geography before expanding to every HBCU student across the country
 
@@ -29,30 +29,43 @@ YARD is a social media application used to foster relationship among Historicall
 
 **Required Must-have Stories**
 
-* Log in and Sign up - users can log in and sign up
-    * verifying emails
-* Bio - users can view their profiles
-* Home - user can see feeds 
+* [x] Log in and Sign up - users can log in and sign up
+    * verifying user emails belong to an HBCU
+* [x] Bio - users can view their profile and personal posts
+* [x] Home - user can see feeds 
     * user can post 
-* Compose
-    * users can post photos, texts and videos
-    * video uploading - size and storing in the database
-* Gestures - users can double tap to like 
-* Animation - animated logo
-* SDKs
-* Visual Polish from external libraries
+* [x] Compose
+    * users can post photos,and texts
+* [x] Gestures - users can swipe left or right to delete picture they wanted to post
+* [x] Animation - animated progress bar
+* [x] SDKs - Google Maps SDK to get the location
+* [x] Visual Polish from external libraries - Lottie
 
 **Optional Nice-to-have Stories**
+* [x] Delete Account - Privacy 
+   * I had to get the current user, query the posts for the current user, created a list of objects representing the posts, then deleted them individualy. NB: Not the most efficient solution. I plan on making it more effective by using an API that can bulk delete all posts assigned to a user id.
+* [x] beautifying the app for better UI/UX
+* [x] log out 
+* [x] Google fonts for app font
+* [x] Users can like a post
+* [x] Users can see more about a particular user by clicking the person's username
+* [x] Users can change profile pictures through uploading or taking pictures
+* [x] users have their pictures beside their username in every post and it changes automatically once the profile in their bio changes either through uploading from gallery or taking picture.
 * Events - users can see whats happening like trends etc 
 * Search - users can search for other users
 * Refresh to see new posts
-* post can show locations 
 * search with different flters like based on school, majors etc
-* log in with gmail option
+* log in with facebook option
 * chat
-* algorithm to suggest 
 * stories
-* beautifying the app for better UI/UX
+
+## DIFFICULTIES
+- Verifying the user attends an HBCU after signing up. Users cant log in until the school email has been verified that it belongs to an HBCU. I started with HBCUs in some specific states like Delaware, Tennessee, and Virginia.
+   * solution: I got the formats of those HBCU emails and immediately tells the user that he cant sign up if his email doesnt match the format of the HBCU emails i fetched from the school's website. If it matches, my algorithm then sends a verification link to the email and the user cant log in until he/she verifies. So ther user cant fake an email address. The user details doesnt also take space in the database. That is, until the user has been verified before the information is stored in the database. Lastly, usernames and emails cannot be repeated. A dialog box appears telling you if a username like that exists or not.
+- Background thread and pagination:
+   * solution - for background thread, i used a calculated loading bar to show the posts are loading and at most before the loading bar finishes the posts would have queried. I did so because background thread makes my app way faster since it isnt running on the UI thread and the user wont be seeing any blank screen. I created a handler thread and used a handler to run it in the background while the loading bar is loading.
+   * For pagination, i used "set skip" on the query to continue adding 15 posts and then when the user scrolls to the end, it loads and fetches another 15 posts
+
 
 
 ### 2. Screen Archetypes
@@ -62,15 +75,12 @@ YARD is a social media application used to foster relationship among Historicall
    * For sign up - username, school, school email, classification, major, password
 * Home
    * Feeds showing posts 
-   * Highlights
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 * Home
-* Events
-* Search
 * Bio
 
 **Flow Navigation** (Screen to Screen)
@@ -79,8 +89,6 @@ YARD is a social media application used to foster relationship among Historicall
    * if the person does - Home page
 * [list second screen here] Home 
    * Home - where the feeds are 
-   * Events - what's happening?
-   * Search - search 
    * Bio - profile, about, posts 
 
 
@@ -106,7 +114,6 @@ YARD is a social media application used to foster relationship among Historicall
    *(Read/GET) Query all posts where user is author
 * (Create/POST) Create a new like on a post
 
-* (Create/POST) Create a new comment on a post
 
 * Create Post Screen
    * (Create/POST) Create a new post object
