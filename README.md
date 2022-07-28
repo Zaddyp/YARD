@@ -1,7 +1,11 @@
 Original App Design Project - README Template
 ===
 
-# YARD
+### YARD
+## INSTRUCTIONS
+* to change profile picture, tap on the profile image in the bio fragment
+* to see more about a user, you can click on the user's name on the post
+* after taking a picture to post and you no longer need it, swipe either left or right to remove the picture
 
 ## Table of Contents
 1. [Overview](#Overview)
