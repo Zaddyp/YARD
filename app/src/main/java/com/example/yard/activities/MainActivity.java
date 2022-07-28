@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         .replace(R.id.fragment_container, new HomeFragment())
         .commit();
     bottomNav.setSelectedItemId(R.id.nav_home);
-    ImageView image = findViewById(R.id.ivImage);
     FloatingActionButton preview = findViewById(R.id.btnPreview);
     preview.setOnClickListener(
         view -> {
@@ -126,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 user.deleteInBackground(
                     new DeleteCallback() {
                       @Override
-                      public void done(com.parse.ParseException e) {
+                      public void done(ParseException e) {
                         if (e == null) {
                           ParseUser.logOut();
                           Intent intent = new Intent(MainActivity.this, LoginActivity.class);
