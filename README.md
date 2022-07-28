@@ -99,7 +99,8 @@ YARD is a social media application that is used to allow students attending Hist
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
-![](https://i.imgur.com/5G7EMNl.jpg)
+![](https://i.imgur.com/7eJWRXT.jpg)
+
 <img src="YOUR_WIREFRAME_IMAGE_URL" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
