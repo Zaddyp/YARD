@@ -24,13 +24,13 @@ YARD is a social media application that is used to allow students attending Hist
 
 ## Product Spec
 
-### INSTRUCTIONS
+### 1. User Stories (Required and Optional)
+
+#### INSTRUCTIONS
 * to change profile picture, tap on the profile image in the bio fragment
 * to see more about a user, you can click on the user's name on the post
 * after taking a picture to post and you no longer need it, swipe either left or right to remove the picture
 
-
-### 1. User Stories (Required and Optional)
 
 **Required Must-have Stories**
 
