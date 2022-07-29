@@ -3,7 +3,6 @@ package com.example.yard.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -11,8 +10,6 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -28,10 +25,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import com.example.yard.R;
 import com.example.yard.adapter.Post;
+import com.example.yard.helperclass.HandlePicturesHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.parse.ParseFile;
@@ -61,6 +58,7 @@ public class PostActivity extends AppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post);
+    HandlePicturesHelper handlePicturesHelper = new HandlePicturesHelper();
     Button btnTakePicture = findViewById(R.id.btnTakePicture);
     Button btnSubmit = findViewById(R.id.btnSubmit);
     Button btnUpload = findViewById(R.id.btnUploadPicture);
@@ -72,7 +70,11 @@ public class PostActivity extends AppCompatActivity
     Button btnRemoveLocation = findViewById(R.id.btnRemoveLocation);
     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     btnGetLocation.setOnClickListener(view -> getLastLocation());
-    btnTakePicture.setOnClickListener(view -> launchCamera());
+    btnTakePicture.setOnClickListener(
+        view -> {
+          photoFile = handlePicturesHelper.getPhotoFileUri(PHOTO_FILE_NAME, this);
+          handlePicturesHelper.launchCamera(this);
+        });
     ivImage.setOnTouchListener(this);
     gestureDetector = new GestureDetector(this, this);
     Toast.makeText(
@@ -80,7 +82,7 @@ public class PostActivity extends AppCompatActivity
         .show();
     btnUpload.setOnClickListener(
         view -> {
-          uploadImage();
+          handlePicturesHelper.uploadImage(this);
         });
     btnSubmit.setOnClickListener(
         view -> {
@@ -99,17 +101,6 @@ public class PostActivity extends AppCompatActivity
         view -> {
           tvUserAddress.setText("");
         });
-  }
-
-  private void launchCamera() {
-    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    photoFile = getPhotoFileUri(PHOTO_FILE_NAME);
-    Uri fileProvider =
-        FileProvider.getUriForFile(PostActivity.this, "com.codepath.fileprovider", photoFile);
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-    if (intent.resolveActivity(PostActivity.this.getPackageManager()) != null) {
-      startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-    }
   }
 
   private void getLastLocation() {
@@ -160,17 +151,10 @@ public class PostActivity extends AppCompatActivity
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
-  private void uploadImage() {
-    Intent intent = new Intent(Intent.ACTION_PICK);
-    intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-    if (intent.resolveActivity(PostActivity.this.getPackageManager()) != null) {
-      startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
-  }
-
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
+    HandlePicturesHelper takenPicture = new HandlePicturesHelper();
     if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
       if (resultCode == RESULT_OK) {
         Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
@@ -182,27 +166,8 @@ public class PostActivity extends AppCompatActivity
     if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
       Uri fileUri = data.getData();
       ivImage.setImageURI(fileUri);
-      photoFile = new File(getPaths(fileUri));
+      photoFile = new File(takenPicture.getPaths(fileUri, this));
     }
-  }
-
-  public String getPaths(Uri uri) {
-    String[] projection = {MediaStore.Images.Media.DATA};
-    Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-    if (cursor == null) return null;
-    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-    cursor.moveToFirst();
-    String strResult = cursor.getString(column_index);
-    cursor.close();
-    return strResult;
-  }
-
-  public File getPhotoFileUri(String fileName) {
-    File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
-    if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-      Log.d(TAG, "failed to create directory");
-    }
-    return new File(mediaStorageDir.getPath() + File.separator + fileName);
   }
 
   private void savePost(
