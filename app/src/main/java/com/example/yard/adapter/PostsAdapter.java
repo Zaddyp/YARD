@@ -1,6 +1,7 @@
 package com.example.yard.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.yard.R;
+import com.example.yard.activities.UserDetailsActivity;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 
@@ -53,7 +55,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private final ImageView ivUserImage;
     private final TextView tvCaption;
     private final TextView tvLocation;
+    private final ImageView ivUserProfilePicture;
     private final View postDivider;
+    private Post post;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
@@ -62,6 +66,20 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
       tvCaption = itemView.findViewById(R.id.tvCaption);
       tvLocation = itemView.findViewById(R.id.tvLocation);
       postDivider = itemView.findViewById(R.id.postSeparator);
+      ivUserProfilePicture = itemView.findViewById(R.id.ivUserProfilePicture);
+      tvUsername.setOnClickListener(
+          new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              int position = getAdapterPosition();
+              if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+                Intent intent = new Intent(PostsAdapter.this.context, UserDetailsActivity.class);
+                intent.putExtra("Post", post);
+                context.startActivity(intent);
+              }
+            }
+          });
     }
 
     public void bind(Post post) throws ParseException {
@@ -79,6 +97,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
       }
       tvLocation.setText(post.getKeyLocation());
       ParseFile image = post.getImage();
+      ParseFile userProfileImage = post.getKeyUser().getParseFile("profilepicture");
+      Glide.with(PostsAdapter.this.context)
+          .load(userProfileImage == null ? null : userProfileImage.getUrl())
+          .into(ivUserProfilePicture);
       if (image != null) {
         Glide.with(context).load(image.getUrl()).into(ivUserImage);
         ivUserImage.setVisibility(View.VISIBLE);
