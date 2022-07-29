@@ -23,7 +23,7 @@ public class BioGridFragment extends Fragment {
   protected RecyclerView rvPosts;
   protected List<Post> allPosts;
   protected PostsAdapter adapter;
-  PostQueryHelper postQueryHelper;
+  protected PostQueryHelper postQueryHelper;
 
   @Nullable
   public View onCreateView(

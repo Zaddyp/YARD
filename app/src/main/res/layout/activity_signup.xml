@@ -100,24 +100,6 @@
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/tvConfirmation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:textColor="@color/button_text"
-            android:textColorHighlight="@color/white"
-            android:textColorHint="@color/button_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
             android:id="@+id/tvMajor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,11 +120,12 @@
             android:id="@+id/btnSigningup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="72dp"
             android:text="sign up"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvConfirmation" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
