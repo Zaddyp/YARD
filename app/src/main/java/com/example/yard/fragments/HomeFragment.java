@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment {
             if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
               fetchMoreBar.setVisibility(View.VISIBLE);
               startThread();
+              Log.d(TAG, "onScrollChange:" + scrollY);
             }
           }
         });
@@ -91,6 +93,12 @@ public class HomeFragment extends Fragment {
 
   public Boolean showProgressBar() {
     return true;
+  }
+
+  public void refreshPosts(Post post) {
+    allPosts.add(0, post);
+    adapter.notifyDataSetChanged();
+    postQueryHelper.postCount += 1;
   }
 
   public class QueryPostInBackgroundRunnable implements Runnable {

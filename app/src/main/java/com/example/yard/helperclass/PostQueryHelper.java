@@ -10,7 +10,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 public class PostQueryHelper {
-  int postCount = 0;
+  public int postCount = 0;
 
   public void queryPost(
       boolean isFromBio, PostsAdapter adapter, List<Post> allPosts, Callback callback) {
@@ -19,7 +19,7 @@ public class PostQueryHelper {
     if (isFromBio) {
       query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
     }
-    query.setLimit(15);
+    query.setLimit(10);
     // create a method called count = 0, count = 15 + count,
     query.setSkip(postCount);
     query.addDescendingOrder(Post.KEY_CREATED_AT);

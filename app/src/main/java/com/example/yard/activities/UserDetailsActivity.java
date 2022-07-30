@@ -17,7 +17,6 @@ public class UserDetailsActivity extends AppCompatActivity {
   private TextView tvUserName;
   private TextView tvUserSchool;
   private TextView tvUserTitle;
-  private TextView tvUserEmail;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +26,12 @@ public class UserDetailsActivity extends AppCompatActivity {
     tvUserName = findViewById(R.id.tvUserName);
     tvUserSchool = findViewById(R.id.tvUserSchool);
     tvUserTitle = findViewById(R.id.tvUserTitle);
-    tvUserEmail = findViewById(R.id.tvUserEmail);
     post = (Post) getIntent().getExtras().get("Post");
     ParseFile userProfileImage = post.getKeyUser().getParseFile("profilepicture");
     String userName = post.getKeyUser().getUsername();
     String userSchool = (String) post.getKeyUser().get("school");
     String userTitle = (String) post.getKeyUser().get("title");
-    String userEmail = post.getKeyUser().getEmail();
     tvUserName.setText(userName);
-    tvUserEmail.setText(userEmail);
     tvUserTitle.setText(userTitle);
     tvUserSchool.setText(userSchool);
     Glide.with(this)

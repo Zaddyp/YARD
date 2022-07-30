@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/blue_main">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
-        android:text="YARD"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/yard_logo"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"

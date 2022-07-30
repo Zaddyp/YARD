@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
   private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
       item -> {
         Fragment selectedFragment = null;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             .commit();
         return true;
       };
+  Post post;
 
   @RequiresApi(api = Build.VERSION_CODES.O)
   @Override
@@ -64,8 +67,28 @@ public class MainActivity extends AppCompatActivity {
     preview.setOnClickListener(
         view -> {
           Intent intent = new Intent(MainActivity.this, PostActivity.class);
-          startActivity(intent);
+          startActivityForResult(intent, 100);
         });
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (post != null) {
+      for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+        if (fragment instanceof HomeFragment) {
+          ((HomeFragment) fragment).refreshPosts(post);
+        }
+      }
+    }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == RESULT_OK) {
+      post = (Post) data.getExtras().get("Post");
+    }
   }
 
   @Override

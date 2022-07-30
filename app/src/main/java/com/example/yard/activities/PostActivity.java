@@ -187,6 +187,10 @@ public class PostActivity extends AppCompatActivity
           }
           etDescription.setText("");
           ivImage.setImageResource(0);
+          Intent intent = new Intent();
+          intent.putExtra("Post", post);
+          setResult(RESULT_OK, intent);
+          finish();
         });
   }
 
